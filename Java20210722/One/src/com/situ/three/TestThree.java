@@ -9,7 +9,6 @@ public class TestThree {
     public void test1 () {
         Scanner st = new Scanner(System.in);
         String str = st.next();
-        str.trim();
         System.out.println(str);
     }
 }
