@@ -1,6 +1,7 @@
 package com.situ.javaWeb.servlet;
 
 import com.situ.javaWeb.entity.Student;
+import com.situ.javaWeb.util.JDBCUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,15 +19,19 @@ public class javaWebOne extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("javaWebOne.service");
         // super.service(req, resp);
+        ArrayList<Student> list = new ArrayList<>();
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/user?" +
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/user?" +
                             "characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true",
                     "root","123456");
             String sql = "select * from student";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet =  statement.executeQuery(sql);
-            ArrayList<Student> list = new ArrayList<>();
+            statement = connection.createStatement();
+            resultSet =  statement.executeQuery(sql);
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String sname = resultSet.getString("sname");
@@ -35,14 +40,14 @@ public class javaWebOne extends HttpServlet {
                 Student student = new Student(id,sname,sex,age);
                 list.add(student);
             }
-            for (Student student : list) {
-                System.out.println(student);
-            }
-            connection.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } finally {
+            JDBCUtil.closest(connection, statement, resultSet);
         }
+        req.setAttribute("list",list);
+        req.getRequestDispatcher("/student_list.jsp").forward(req,resp);
     }
 }
