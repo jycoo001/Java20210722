@@ -9,13 +9,24 @@
 <html>
 <head>
     <title>添加</title>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
+
 </head>
 <body>
     <form action="<%=request.getContextPath()%>/student?method=insert" method="post">
-        姓名:<input type="text" name="sname"><br/>
-        性别:<input type="text" name="sex"> <br/>
-        年龄:<input type="text" name="age"><br/>
-        <input type="submit" value="提交">
+        <div class="form-group">
+            <label>姓名</label>
+            <input type="text" class="form-control" name="sname" placeholder="姓名">
+        </div>
+        <div class="form-group">
+            <label>性别</label>
+            <input type="text" class="form-control" name="sex" placeholder="性别">
+        </div>
+        <div class="form-group">
+            <label>年龄</label>
+            <input type="text" class="form-control" name="age" placeholder="年龄">
+        </div>
+        <button type="submit" class="btn btn-success">提交</button>
     </form>
 
 </body>

@@ -35,8 +35,8 @@
             <td><%=student.getAge()%></td>
         <%--<td><a href="<%=request.getContextPath()%>/student?method=deleteById&id=<%=student.getId()%>">删除</a></td>--%>
             <td>
-                <a href="javascript:void(0)" onclick="deleteById(<%=student.getId()%>)">删除</a>
-                <a href="javascript:void(0)" onclick="update(<%=student.getId()%>)">修改</a>
+                <a class="btn btn-danger" href="javascript:void(0)" onclick="deleteById(<%=student.getId()%>)">删除</a>
+                <a class="btn btn-warning" href="<%=request.getContextPath()%>/student?method=selectOne&id=<%=student.getId()%>">修改</a>
             </td>
         </tr>
                     <%
@@ -50,10 +50,6 @@
                 if (isDelete) {
                 location.href = "<%=request.getContextPath()%>/student?method=deleteById&id=" + id;
                 }
-            }
-
-            function update (id) {
-                location.href = "<%=request.getContextPath()%>/student?method=selectOne&id="+id;
             }
     </script>
 </body>

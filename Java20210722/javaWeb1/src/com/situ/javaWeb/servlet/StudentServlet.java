@@ -100,6 +100,9 @@ public class StudentServlet extends HttpServlet {
         String sname = req.getParameter("sname");
         String sex = req.getParameter("sex");
         String age = req.getParameter("age");
+        if(sname==null||sex==null||age==null||sname==""||sex==""||age=="") {
+            resp.sendRedirect(req.getContextPath()+"/student");
+        }
        try {
            connection = JDBCUtil.getConnection();
            String sql = "insert into student(sex,sname,age) value(?,?,?)";
