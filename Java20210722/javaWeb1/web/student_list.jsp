@@ -10,57 +10,51 @@
 <html>
 <head>
     <title>student List</title>
-    <style type="text/css">
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        .div{
-            width: 100%;
-        }
-        .div1{
-            width: 400px;
-            height: 30px;
-            margin: 0 auto;
-        }
-        .div2{
-            width: 400px;
-            margin: 0 auto;
-        }
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
 
-    </style>
 </head>
 <body>
-    <div class="div">
-        <div class="div1">
-            <a href="student_insert.jsp">添加</a>
-        </div>
-        <hr/>
-        <div class="div2">
-            <table>
-                <tr>
-                    <td>ID</td>
-                    <td>姓名</td>
-                    <td>性别</td>
-                    <td>年龄</td>
-                    <td>删除</td>
-                </tr>
-                <%
-                    ArrayList<Student> list = (ArrayList<Student>) request.getAttribute("list");
-                    for (Student student : list) {
-                %>
-                <tr>
-                    <td><%=student.getId()%></td>
-                    <td><%=student.getSname()%></td>
-                    <td><%=student.getSex()%></td>
-                    <td><%=student.getAge()%></td>
-                    <td><a href="<%=request.getContextPath()%>/student?method=deleteById&id=<%=student.getId()%>">删除</a></td>
-                </tr>
-                <%
-                    }
-                %>
-            </table>
-        </div>
-    </div>
+    <a class="btn btn-success" href="student_insert.jsp">添加</a>
+    <hr/>
+    <table class="table table-bordered table-striped table-hover tab-content">
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>删除</th>
+        </tr>
+            <%
+                        ArrayList<Student> list = (ArrayList<Student>) request.getAttribute("list");
+                        for (Student student : list) {
+            %>
+        <tr>
+            <td><%=student.getId()%></td>
+            <td><%=student.getSname()%></td>
+            <td><%=student.getSex()%></td>
+            <td><%=student.getAge()%></td>
+        <%--<td><a href="<%=request.getContextPath()%>/student?method=deleteById&id=<%=student.getId()%>">删除</a></td>--%>
+            <td>
+                <a href="javascript:void(0)" onclick="deleteById(<%=student.getId()%>)">删除</a>
+                <a href="javascript:void(0)" onclick="update(<%=student.getId()%>)">修改</a>
+            </td>
+        </tr>
+                    <%
+                        }
+                    %>
+    </table>
+
+    <script type="text/javascript">
+            function deleteById (id) {
+                var isDelete = confirm("您确认要删除吗？");
+                if (isDelete) {
+                location.href = "<%=request.getContextPath()%>/student?method=deleteById&id=" + id;
+                }
+            }
+
+            function update (id) {
+                location.href = "<%=request.getContextPath()%>/student?method=selectOne&id="+id;
+            }
+    </script>
 </body>
 </html>
