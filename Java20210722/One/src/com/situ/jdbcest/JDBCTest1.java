@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JDBCTest1 {
+    //查找>=id的
     @Test
     public void test1 () throws SQLException {
         System.out.println("JDBCTest1.test1");
@@ -19,13 +20,8 @@ public class JDBCTest1 {
         System.out.println("请输入id");
         setId = sc.nextInt();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/user?" +
-                            "characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true",
-                    "root","123456");
+            connection = JDBCUtil.getConnection();
             String sql = "select * from student where id >= ?";
-            //statement = connection.createStatement();
-            //resultSet =  statement.executeQuery(sql);
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,setId);
             resultSet = preparedStatement.executeQuery();
@@ -41,14 +37,30 @@ public class JDBCTest1 {
             for (Student student : list) {
                 System.out.println(student);
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }finally {
-            connection.close();
-            preparedStatement.close();
-            resultSet.close();
+            JDBCUtil.closepre(connection, preparedStatement, resultSet);
         }
     }
+
+    //删除
+    @Test
+    public void testDelect () {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "delete from student where id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,2);
+            int count = preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JDBCUtil.closepre(connection, preparedStatement, resultSet);
+        }
+    }
+
 }

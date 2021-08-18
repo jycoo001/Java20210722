@@ -17,35 +17,33 @@
         }
         .div{
             width: 100%;
-            background-color: blue;
         }
         .div1{
             width: 400px;
-            height: 130px;
+            height: 30px;
             margin: 0 auto;
         }
         .div2{
             width: 400px;
             margin: 0 auto;
         }
-        .bg_color{
-            background-color: red;
-        }
+
     </style>
 </head>
 <body>
     <div class="div">
-        <div class="div1 bg_color">
-            ${list}
+        <div class="div1">
+            <a href="student_insert.jsp">添加</a>
         </div>
         <hr/>
-        <div class="div2 bg_color">
+        <div class="div2">
             <table>
                 <tr>
                     <td>ID</td>
                     <td>姓名</td>
                     <td>性别</td>
                     <td>年龄</td>
+                    <td>删除</td>
                 </tr>
                 <%
                     ArrayList<Student> list = (ArrayList<Student>) request.getAttribute("list");
@@ -56,6 +54,7 @@
                     <td><%=student.getSname()%></td>
                     <td><%=student.getSex()%></td>
                     <td><%=student.getAge()%></td>
+                    <td><a href="<%=request.getContextPath()%>/student?method=deleteById&id=<%=student.getId()%>">删除</a></td>
                 </tr>
                 <%
                     }

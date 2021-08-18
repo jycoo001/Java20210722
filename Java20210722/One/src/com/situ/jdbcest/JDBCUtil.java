@@ -1,9 +1,9 @@
-package com.situ.javaWeb.util;
+package com.situ.jdbcest;
 
 import java.sql.*;
 
 public class JDBCUtil {
-    private JDBCUtil () {
+    private JDBCUtil() {
 
     }
 
