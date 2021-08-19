@@ -46,13 +46,13 @@
 						<dl class="layui-nav-child">
 							<dd>
 								<a href="javascript:;" 
-								data-url="<%=request.getContextPath()%>/student"
+								data-url="<%=request.getContextPath()%>/student?method=selectAll&pageNumber=1&pageSize=5"
 								class="site-demo-active">学生管理</a>
 							</dd>
 							<dd>
 								<a href="javascript:;" 
-								data-url="${path}/dept/getDeptListPage"
-								class="site-demo-active">部门管理</a>
+								data-url="<%=request.getContextPath()%>/teacher?method=selectAll&pageNumber=1&pageSize=5"
+								class="site-demo-active">教师管理</a>
 							</dd>
 							<dd>
 								<a href="javascript:;"

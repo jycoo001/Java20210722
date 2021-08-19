@@ -1,5 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.situ.javaWeb.entity.Student" %><%--
+<%@ page import="com.situ.javaWeb.entity.Student" %>
+<%@ page import="com.situ.javaWeb.util.pageInfo" %><%--
   Created by IntelliJ IDEA.
   User: 12430
   Date: 2021/8/17
@@ -25,8 +26,9 @@
             <th>删除</th>
         </tr>
             <%
-                        ArrayList<Student> list = (ArrayList<Student>) request.getAttribute("list");
-                        for (Student student : list) {
+                        pageInfo list = (pageInfo) request.getAttribute("pageInfo1");
+                        ArrayList<Student> students = list.getList();
+                        for (Student student : students) {
             %>
         <tr>
             <td><%=student.getId()%></td>
@@ -43,6 +45,67 @@
                         }
                     %>
     </table>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+                <%
+                if (list.getPageNumber()>1) {
+                %>
+                    <li>
+                            <a href="<%=request.getContextPath()%>/student?method=selectAll&pageNumber=<%=list.getPageNumber()-1%>"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                    </li>
+                <%
+                }else {
+                %>
+                    <li class="disabled">
+                            <a href="" aria-label="Previous">
+                                 <span aria-hidden="true">&laquo;</span>
+                            </a>
+                    </li>
+                <%
+                }
+                %>
+            <%
+                for (int i = 1; i <= list.getTotalPage(); i++) {
+            %>
+                    <li>
+                        <a href="<%=request.getContextPath()%>/student?method=selectAll&pageNumber=<%=i%>"><%=i%></a>
+                    </li>
+            <%
+                }
+            %>
+                <%
+                    if (list.getPageNumber()<list.getTotalPage()) {
+                %>
+                    <li>
+                        <a href="<%=request.getContextPath()%>/student?method=selectAll&pageNumber=<%=list.getPageNumber()+1%>"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <%
+                }else {
+                %>
+                    <li class="disabled">
+                        <a href="" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <%
+                    }
+                %>
+        </ul>
+    </nav>
+
+
+
+
+
+
+
 
     <script type="text/javascript">
             function deleteById (id) {
