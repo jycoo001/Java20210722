@@ -5,6 +5,7 @@ public class Student {
     private String sname;
     private String sex;
     private int age;
+    private int banjiId;
 
     public Student() {
         super();
@@ -16,6 +17,14 @@ public class Student {
         this.sname = sname;
         this.sex = sex;
         this.age = age;
+    }
+
+    public Student(int id, String sname, String sex, int age, int banjiId) {
+        this.id = id;
+        this.sname = sname;
+        this.sex = sex;
+        this.age = age;
+        this.banjiId = banjiId;
     }
 
     public int getId() {
@@ -50,6 +59,14 @@ public class Student {
         this.age = age;
     }
 
+    public int getBanjiId() {
+        return banjiId;
+    }
+
+    public void setBanjiId(int banjiId) {
+        this.banjiId = banjiId;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -57,6 +74,7 @@ public class Student {
                 ", sname='" + sname + '\'' +
                 ", sex='" + sex + '\'' +
                 ", age=" + age +
+                ", banjiId=" + banjiId +
                 '}';
     }
 }

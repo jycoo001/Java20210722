@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.situ.javaWeb.entity.Banji" %><%--
   Created by IntelliJ IDEA.
   User: 12430
   Date: 2021/8/18
@@ -13,6 +14,9 @@
 
 </head>
 <body>
+    <%
+        List<Banji> banjiList = (List<Banji>) request.getAttribute("banjiList");
+    %>
     <form action="<%=request.getContextPath()%>/student?method=insert" method="post">
         <div class="form-group">
             <label>姓名</label>
@@ -25,6 +29,21 @@
         <div class="form-group">
             <label>年龄</label>
             <input type="text" class="form-control" name="age" placeholder="年龄">
+        </div>
+
+        <div class="form-group">
+            <label>班级</label>
+            <select name="banjiId" class="form-control">
+            <%
+                for (Banji banji : banjiList) {
+            %>
+
+                    <option value="<%=banji.getId()%>"><%=banji.getName()%></option>
+
+            <%
+                }
+            %>
+            </select>
         </div>
         <button type="submit" class="btn btn-success">提交</button>
     </form>

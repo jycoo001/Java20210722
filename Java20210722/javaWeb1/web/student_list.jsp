@@ -1,6 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.situ.javaWeb.entity.Student" %>
-<%@ page import="com.situ.javaWeb.util.pageInfo" %><%--
+<%@ page import="com.situ.javaWeb.util.pageInfo" %>
+<%@ page import="com.situ.javaWeb.vo.StudentBanji" %><%--
   Created by IntelliJ IDEA.
   User: 12430
   Date: 2021/8/17
@@ -15,7 +16,7 @@
 
 </head>
 <body>
-    <a class="btn btn-success" href="student_insert.jsp">添加</a>
+    <a class="btn btn-success" href="<%=request.getContextPath()%>/student?method=getBanjiInsert">添加</a>
     <hr/>
     <table class="table table-bordered table-striped table-hover tab-content">
         <tr>
@@ -23,22 +24,24 @@
             <th>姓名</th>
             <th>性别</th>
             <th>年龄</th>
+            <th>班级</th>
             <th>删除</th>
         </tr>
             <%
                         pageInfo list = (pageInfo) request.getAttribute("pageInfo1");
-                        ArrayList<Student> students = list.getList();
-                        for (Student student : students) {
+                        ArrayList<StudentBanji> students = list.getList();
+                        for (StudentBanji student : students) {
             %>
         <tr>
-            <td><%=student.getId()%></td>
-            <td><%=student.getSname()%></td>
-            <td><%=student.getSex()%></td>
-            <td><%=student.getAge()%></td>
+            <td><%=student.getStudentId()%></td>
+            <td><%=student.getStudentName()%></td>
+            <td><%=student.getStudentSex()%></td>
+            <td><%=student.getStudentAge()%></td>
+            <td><%=student.getBanjiName()%></td>
         <%--<td><a href="<%=request.getContextPath()%>/student?method=deleteById&id=<%=student.getId()%>">删除</a></td>--%>
             <td>
-                <a class="btn btn-danger" href="javascript:void(0)" onclick="deleteById(<%=student.getId()%>)">删除</a>
-                <a class="btn btn-warning" href="<%=request.getContextPath()%>/student?method=selectOne&id=<%=student.getId()%>">修改</a>
+                <a class="btn btn-danger" href="javascript:void(0)" onclick="deleteById(<%=student.getStudentId()%>)">删除</a>
+                <a class="btn btn-warning" href="<%=request.getContextPath()%>/student?method=selectOne&id=<%=student.getStudentId()%>">修改</a>
             </td>
         </tr>
                     <%

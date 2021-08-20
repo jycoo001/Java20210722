@@ -1,8 +1,10 @@
 package com.situ.javaWeb.servlet;
 
+import com.situ.javaWeb.entity.Banji;
 import com.situ.javaWeb.entity.Student;
 import com.situ.javaWeb.util.JDBCUtil;
 import com.situ.javaWeb.util.pageInfo;
+import com.situ.javaWeb.vo.StudentBanji;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
@@ -41,7 +44,62 @@ public class StudentServlet extends HttpServlet {
                 break;
             case "selectOne":
                 selectOne(req, resp);
+            case "getBanjiInsert":
+                getBanjiInsert(req, resp);
+                break;
         }
+    }
+
+    private void getBanjiInsert(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("StudentServlet.getBanjiInsert");
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Banji> list = new ArrayList<>();
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "select id,name from banji";
+            statement = connection.prepareStatement(sql);
+            System.out.println(statement);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Banji banji = new Banji(id, name);
+                list.add(banji);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JDBCUtil.closepre(connection, statement, resultSet);
+        }
+        req.setAttribute("banjiList", list);
+        req.getRequestDispatcher("/student_insert.jsp").forward(req, resp);
+    }
+    private void getBanjiEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("StudentServlet.getBanjiEdit");
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Banji> list = new ArrayList<>();
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "select id,name from banji";
+            statement = connection.prepareStatement(sql);
+            System.out.println(statement);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Banji banji = new Banji(id, name);
+                list.add(banji);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JDBCUtil.closepre(connection, statement, resultSet);
+        }
+        req.setAttribute("banjiList", list);
     }
 
     private void selectOne(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -61,7 +119,8 @@ public class StudentServlet extends HttpServlet {
                 String sname = resultSet.getString("sname");
                 String sex = resultSet.getString("sex");
                 int age = resultSet.getInt("age");
-                student = new Student(Integer.parseInt(id),sname,sex,age);
+                int banjiId = resultSet.getInt("banjiId");
+                student = new Student(Integer.parseInt(id),sname,sex,age,banjiId);
             }
         }catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -69,7 +128,8 @@ public class StudentServlet extends HttpServlet {
             JDBCUtil.closepre(connection,statement,resultSet);
         }
         req.setAttribute("student", student);
-        req.getRequestDispatcher("student_edit.jsp").forward(req,resp);
+        getBanjiEdit(req, resp);
+        req.getRequestDispatcher("/student_edit.jsp").forward(req,resp);
     }
 
     private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -79,14 +139,16 @@ public class StudentServlet extends HttpServlet {
         String sname = req.getParameter("sname");
         String sex = req.getParameter("sex");
         String age = req.getParameter("age");
+        String banjiId = req.getParameter("banjiId");
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "update student set sex=?,sname=?,age=? where id=?";
+            String sql = "update student set sex=?,sname=?,age=?,banjiId=? where id=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1,sex);
             statement.setString(2,sname);
             statement.setInt(3,Integer.parseInt(age));
-            statement.setInt(4,Integer.parseInt(id));
+            statement.setInt(4,Integer.parseInt(banjiId));
+            statement.setInt(5,Integer.parseInt(id));
             System.out.println(statement);
             int count = statement.executeUpdate();
             System.out.println("insert count:" + count);
@@ -103,17 +165,17 @@ public class StudentServlet extends HttpServlet {
         PreparedStatement statement = null;
         String sname = req.getParameter("sname");
         String sex = req.getParameter("sex");
-        String age = req.getParameter("age");
-        if(sname==null||sex==null||age==null||sname==""||sex==""||age=="") {
-            resp.sendRedirect(req.getContextPath()+"/student");
-        }
+        int age = Integer.parseInt(req.getParameter("age"));
+        int banjiId = Integer.parseInt(req.getParameter("banjiId"));
+
        try {
            connection = JDBCUtil.getConnection();
-           String sql = "insert into student(sex,sname,age) value(?,?,?)";
+           String sql = "insert into student(sex,sname,age,banjiId) value(?,?,?,?)";
            statement = connection.prepareStatement(sql);
            statement.setString(1,sex);
            statement.setString(2,sname);
-           statement.setInt(3,Integer.parseInt(age));
+           statement.setInt(3,age);
+           statement.setInt(4,banjiId);
            System.out.println(statement);
            int count = statement.executeUpdate();
            System.out.println("insert count:" + count);
@@ -149,7 +211,7 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void selectAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArrayList<Student> list = new ArrayList<>();
+        ArrayList<StudentBanji> list = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -166,18 +228,21 @@ public class StudentServlet extends HttpServlet {
         int offset = (pageNumber-1) * pageSize;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "select id,sex,sname,age from student limit ?,?";
+            String sql = "SELECT s.id as studentId,s.sname as studentSname,s.sex as studentSex,s.age as studentAge,b.Name as banjiName\n" +
+                    "FROM student as s INNER JOIN banji as b\n" +
+                    "ON s.banjiId=b.id limit ?,?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1,offset);
             statement.setInt(2,pageSize);
             System.out.println(statement);
             resultSet =  statement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String sname = resultSet.getString("sname");
-                String sex = resultSet.getString("sex");
-                int age = resultSet.getInt("age");
-                Student student = new Student(id,sname,sex,age);
+                int studentId = resultSet.getInt("studentId");
+                String studentSname = resultSet.getString("studentSname");
+                String studentSex = resultSet.getString("studentSex");
+                int studentAge = resultSet.getInt("studentAge");
+                String banjiName = resultSet.getString("banjiName");
+                StudentBanji student = new StudentBanji(studentId, studentSname, studentSex, studentAge, banjiName);
                 list.add(student);
             }
         } catch (SQLException throwables) {
