@@ -101,7 +101,7 @@
 					'您确认要退出么',
 					{icon:3},
 					function() {
-						location.href = '${path}/user/logout'
+						location.href = '<%=request.getContextPath()%>/user?method=logout'
 					}
 			);
 		}

@@ -24,7 +24,7 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("StudentServlet.service");
-        req.setCharacterEncoding("UTF-8");
+        //req.setCharacterEncoding("UTF-8");
         String method = req.getParameter("method");
         if (method == null||method.equals("")){
             method = "selectAll";
