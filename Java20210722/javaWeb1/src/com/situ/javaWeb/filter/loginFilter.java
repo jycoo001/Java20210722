@@ -25,9 +25,14 @@ public class loginFilter implements Filter {
         String servletPath = httpServletRequest.getServletPath();
         String method = httpServletRequest.getParameter("method");
 
+
+
         if (servletPath.equals("/login.jsp")
                 || (servletPath.equals("/user")&&method.equals("login"))
-                || servletPath.equals("/fail.jsp")) {
+                || servletPath.equals("/fail.jsp")
+                || servletPath.equals("/code")
+                || servletPath.endsWith(".css")
+                || servletPath.endsWith(".js")) {
             chain.doFilter(request, response);
             return;
         }

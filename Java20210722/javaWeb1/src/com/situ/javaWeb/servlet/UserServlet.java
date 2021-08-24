@@ -41,6 +41,14 @@ public class UserServlet extends HttpServlet {
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String code = req.getParameter("code");
+        HttpSession session = req.getSession();
+        String sessionCode = (String) session.getAttribute("sessionCode");
+        if (!sessionCode.equals(code)) {
+            resp.sendRedirect(req.getContextPath()+"/login.jsp");
+            return;
+        }
+
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -67,8 +75,8 @@ public class UserServlet extends HttpServlet {
             JDBCUtil.closepre(connection, statement, resultSet);
         }
         if (user!=null) {
-            HttpSession session1 = req.getSession();
-            session1.setAttribute("user", user);
+            session = req.getSession();
+            session.setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
             resp.sendRedirect(req.getContextPath()+"/fail.jsp");
