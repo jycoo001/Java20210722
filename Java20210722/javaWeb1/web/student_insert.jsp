@@ -10,14 +10,11 @@
 <html>
 <head>
     <title>添加</title>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
 
 </head>
 <body>
-    <%
-        List<Banji> banjiList = (List<Banji>) request.getAttribute("banjiList");
-    %>
-    <form action="<%=request.getContextPath()%>/student?method=insert" method="post">
+    <form action="${pageContext.request.contextPath}/student?method=insert" method="post">
         <div class="form-group">
             <label>姓名</label>
             <input type="text" class="form-control" name="sname" placeholder="姓名">
@@ -34,15 +31,16 @@
         <div class="form-group">
             <label>班级</label>
             <select id="banjiId" name="banjiId" class="form-control">
+                <option>---请选择---</option>
             </select>
         </div>
         <button type="submit" class="btn btn-success">提交</button>
     </form>
-    <script src="<%=request.getContextPath()%>/static/jquery-2.1.4.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/static/jquery-2.1.4.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
                 $.post(
-                    '<%=request.getContextPath()%>/banji?method=selectAll',
+                    '${pageContext.request.contextPath}/banji?method=selectAll',
                     function (jsonList) {
                         $(jsonList).each(function () {
                             $('#banjiId').append('<option value="' + this.id + '">' + this.name + '</option>');

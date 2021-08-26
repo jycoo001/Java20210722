@@ -27,11 +27,11 @@
         <option>---请选择·---</option>
     </select>
 
-    <script src="<%=request.getContextPath()%>/static/jquery-2.1.4.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/static/jquery-2.1.4.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $.post(
-                '<%=request.getContextPath()%>/area?method=selectProvince',
+                '${pageContext.request.contextPath}/area?method=selectProvince',
                 function (jsonObj) {
                     console.log(jsonObj);
                     $(jsonObj).each(function () {
@@ -46,7 +46,7 @@
             console.log(obj);
             var provinceId = $(obj).val();
             $.post(
-                '<%=request.getContextPath()%>/area?method=selectCity',
+                '${pageContext.request.contextPath}/area?method=selectCity',
                 {'provinceId':provinceId},
                 function (jsonObj) {
                     console.log(jsonObj);
@@ -63,7 +63,7 @@
             console.log(obj);
             var cityId = $(obj).val();
             $.post(
-                '<%=request.getContextPath()%>/area?method=selectArea',
+                '${pageContext.request.contextPath}/area?method=selectArea',
                 {'cityId':cityId},
                 function (jsonObj) {
                     console.log(jsonObj);

@@ -3,8 +3,8 @@
 <html>
 <head>
 
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui/css/layui.css"/>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/static/layui/layui.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/layui/css/layui.css"/>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/layui/layui.js"></script>
 	<title>主页</title>
 </head>
 <body class="layui-layout-body">
@@ -46,12 +46,12 @@
 						<dl class="layui-nav-child">
 							<dd>
 								<a href="javascript:;" 
-								data-url="<%=request.getContextPath()%>/student?method=selectAll&pageNumber=1&pageSize=5"
+								data-url="${pageContext.request.contextPath}/student?method=selectAll&pageNumber=1&pageSize=5"
 								class="site-demo-active">学生管理</a>
 							</dd>
 							<dd>
 								<a href="javascript:;" 
-								data-url="<%=request.getContextPath()%>/teacher?method=selectAll&pageNumber=1&pageSize=5"
+								data-url="${pageContext.request.contextPath}/teacher?method=selectAll&pageNumber=1&pageSize=5"
 								class="site-demo-active">教师管理</a>
 							</dd>
 							<dd>
@@ -101,7 +101,7 @@
 					'您确认要退出么',
 					{icon:3},
 					function() {
-						location.href = '<%=request.getContextPath()%>/user?method=logout'
+						location.href = '${pageContext.request.contextPath}/user?method=logout'
 					}
 			);
 		}

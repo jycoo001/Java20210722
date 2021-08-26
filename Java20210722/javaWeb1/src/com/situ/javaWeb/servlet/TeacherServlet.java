@@ -188,7 +188,7 @@ public class TeacherServlet extends HttpServlet {
         int totalCount = getCount();
         int totalpage = (int)Math.ceil((double)totalCount / pageSize);
         pageInfo pageInfo1 = new pageInfo(list,pageNumber,totalpage,pageSize);
-        req.setAttribute("pageInfo1",pageInfo1);
+        req.setAttribute("pageInfo",pageInfo1);
         req.getRequestDispatcher("/teacher_list.jsp").forward(req,resp);
     }
 

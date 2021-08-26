@@ -8,15 +8,16 @@
   Time: 11:39
   To change this template use File | Settings | File Templates.
 --%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>student List</title>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
 
 </head>
 <body>
-    <a class="btn btn-success" href="<%=request.getContextPath()%>/student_insert.jsp">添加</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/student_insert.jsp">添加</a>
     <hr/>
     <table class="table table-bordered table-striped table-hover tab-content">
         <tr>
@@ -27,94 +28,71 @@
             <th>班级</th>
             <th>删除</th>
         </tr>
-            <%
-                        pageInfo list = (pageInfo) request.getAttribute("pageInfo1");
-                        ArrayList<StudentBanji> students = list.getList();
-                        for (StudentBanji student : students) {
-            %>
-        <tr>
-            <td><%=student.getStudentId()%></td>
-            <td><%=student.getStudentName()%></td>
-            <td><%=student.getStudentSex()%></td>
-            <td><%=student.getStudentAge()%></td>
-            <td><%=student.getBanjiName()%></td>
-        <%--<td><a href="<%=request.getContextPath()%>/student?method=deleteById&id=<%=student.getId()%>">删除</a></td>--%>
-            <td>
-                <a class="btn btn-danger" href="javascript:void(0)" onclick="deleteById(<%=student.getStudentId()%>)">删除</a>
-                <a class="btn btn-warning" href="<%=request.getContextPath()%>/student?method=selectOne&id=<%=student.getStudentId()%>">修改</a>
-            </td>
-        </tr>
-                    <%
-                        }
-                    %>
+        <c:forEach items="${pageInfo.list}" var="student">
+            <tr>
+                <td>${student.studentId}</td>
+                <td>${student.studentName}</td>
+                <td>${student.studentSex}</td>
+                <td>${student.studentAge}</td>
+                <td>${student.banjiName}</td>
+                <%--<td><a href="<%=request.getContextPath()%>/student?method=deleteById&id=<%=student.getId()%>">删除</a></td>--%>
+                <td>
+                    <a class="btn btn-danger" href="javascript:void(0)" onclick="deleteById(${student.studentId})">删除</a>
+                    <a class="btn btn-warning" href="${pageContext.request.contextPath}/student?method=selectOne&id=${student.studentId}&pageNumber=${pageInfo.pageNumber}">修改</a>
+                </td>
+            </tr>
+        </c:forEach>
     </table>
 
     <nav aria-label="Page navigation">
         <ul class="pagination">
-                <%
-                if (list.getPageNumber()>1) {
-                %>
+            <c:choose>
+                <c:when test="${pageInfo.pageNumber>1}">
                     <li>
-                            <a href="<%=request.getContextPath()%>/student?method=selectAll&pageNumber=<%=list.getPageNumber()-1%>"
-                               aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
+                        <a href="${pageContext.request.contextPath}/student?method=selectAll&pageNumber=${pageInfo.pageNumber-1}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
                     </li>
-                <%
-                }else {
-                %>
+                </c:when>
+                <c:otherwise>
                     <li class="disabled">
-                            <a href="" aria-label="Previous">
-                                 <span aria-hidden="true">&laquo;</span>
-                            </a>
+                        <a href="" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
                     </li>
-                <%
-                }
-                %>
-            <%
-                for (int i = 1; i <= list.getTotalPage(); i++) {
-            %>
+                </c:otherwise>
+            </c:choose>
+            <c:forEach begin="1" end="${pageInfo.totalPage}" var="i">
+                <li>
+                    <a href="${pageContext.request.contextPath}/student?method=selectAll&pageNumber=${i}">${i}</a>
+                </li>
+            </c:forEach>
+            <c:choose>
+                <c:when test="${pageInfo.pageNumber < pageInfo.totalPage}">
                     <li>
-                        <a href="<%=request.getContextPath()%>/student?method=selectAll&pageNumber=<%=i%>"><%=i%></a>
-                    </li>
-            <%
-                }
-            %>
-                <%
-                    if (list.getPageNumber()<list.getTotalPage()) {
-                %>
-                    <li>
-                        <a href="<%=request.getContextPath()%>/student?method=selectAll&pageNumber=<%=list.getPageNumber()+1%>"
+                        <a href="${pageContext.request.contextPath}/student?method=selectAll&pageNumber=${pageInfo.pageNumber+1}"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
-                <%
-                }else {
-                %>
+                </c:when>
+                <c:otherwise>
                     <li class="disabled">
                         <a href="" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
-                <%
-                    }
-                %>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </nav>
-
-
-
-
-
-
-
 
     <script type="text/javascript">
             function deleteById (id) {
                 var isDelete = confirm("您确认要删除吗？");
                 if (isDelete) {
-                location.href = "<%=request.getContextPath()%>/student?method=deleteById&id=" + id;
+                location.href = "<%=request.getContextPath()%>/student?method=deleteById&id=" + id + "&pageNumber="+${pageInfo.pageNumber};
                 }
             }
     </script>

@@ -52,6 +52,7 @@ public class StudentServlet extends HttpServlet {
         ResultSet resultSet = null;
         Student student = null;
         String id = req.getParameter("id");
+        String pageNumber = req.getParameter("pageNumber");
         try {
             connection = JDBCUtil.getConnection();
             String sql = "select * from student where id=?";
@@ -72,6 +73,7 @@ public class StudentServlet extends HttpServlet {
             JDBCUtil.closepre(connection,statement,resultSet);
         }
         req.setAttribute("student", student);
+        req.setAttribute("pageNumber",pageNumber);
         req.getRequestDispatcher("/student_edit.jsp").forward(req,resp);
     }
 
@@ -83,6 +85,7 @@ public class StudentServlet extends HttpServlet {
         String sex = req.getParameter("sex");
         String age = req.getParameter("age");
         String banjiId = req.getParameter("banjiId");
+        String pageNumber = req.getParameter("pageNumber");
         try {
             connection = JDBCUtil.getConnection();
             String sql = "update student set sex=?,sname=?,age=?,banjiId=? where id=?";
@@ -100,7 +103,7 @@ public class StudentServlet extends HttpServlet {
         }finally {
             JDBCUtil.closepre(connection,statement,null);
         }
-        resp.sendRedirect(req.getContextPath()+"/student");
+        resp.sendRedirect(req.getContextPath()+"/student?method=selectAll&pageNumber="+pageNumber);
     }
 
     private void insert(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -110,6 +113,7 @@ public class StudentServlet extends HttpServlet {
         String sex = req.getParameter("sex");
         int age = Integer.parseInt(req.getParameter("age"));
         int banjiId = Integer.parseInt(req.getParameter("banjiId"));
+        int pageSize = 5;
        try {
            connection = JDBCUtil.getConnection();
            String sql = "insert into student(sex,sname,age,banjiId) value(?,?,?,?)";
@@ -126,12 +130,15 @@ public class StudentServlet extends HttpServlet {
        }finally {
            JDBCUtil.closepre(connection,statement,null);
        }
-       resp.sendRedirect(req.getContextPath()+"/student");
+        int totalCount = getCount();
+        int totalpage = (int)Math.ceil((double)totalCount / pageSize);
+       resp.sendRedirect(req.getContextPath()+"/student?pageNumber="+totalpage);
 
     }
 
     private void deleteById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String id = req.getParameter("id");
+        String pageNumber = req.getParameter("pageNumber");
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -147,8 +154,7 @@ public class StudentServlet extends HttpServlet {
         }finally {
             JDBCUtil.closepre(connection,statement,null);
         }
-
-        resp.sendRedirect(req.getContextPath()+"/student");
+        resp.sendRedirect(req.getContextPath()+"/student?method=selectAll&pageNumber="+pageNumber);
     }
 
     private void selectAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -194,7 +200,7 @@ public class StudentServlet extends HttpServlet {
         int totalCount = getCount();
         int totalpage = (int)Math.ceil((double)totalCount / pageSize);
         pageInfo pageInfo1 = new pageInfo(list,pageNumber,totalpage,pageSize);
-        req.setAttribute("pageInfo1",pageInfo1);
+        req.setAttribute("pageInfo",pageInfo1);
         req.getRequestDispatcher("/student_list.jsp").forward(req,resp);
     }
 

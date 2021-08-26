@@ -9,11 +9,11 @@
 <html>
 <head>
     <title>添加</title>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
 
 </head>
 <body>
-    <form action="<%=request.getContextPath()%>/teacher?method=insert" method="post">
+    <form action="${pageContext.request.contextPath}/teacher?method=insert" method="post">
         <div class="form-group">
             <label>姓名</label>
             <input type="text" class="form-control" name="name" placeholder="姓名">

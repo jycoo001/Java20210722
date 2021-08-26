@@ -11,29 +11,26 @@
 <html>
 <head>
     <title>Teacher-Edit</title>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
 
 </head>
 <body>
-<%
-    Teacher teacher = (Teacher)request.getAttribute("teacher");
-%>
-<form action="<%=request.getContextPath()%>/teacher?method=update" method="post">
-    <input type="hidden" name="id" value="<%=teacher.getId()%>">
-    <div class="form-group">
-        <label>姓名</label>
-        <input type="text" class="form-control" name="name" value="<%=teacher.getName()%>">
-    </div>
-    <div class="form-group">
-        <label>地址</label>
-        <input type="text" class="form-control" name="address" value="<%=teacher.getAddress()%>">
-    </div>
-    <div class="form-group">
-        <label>年龄</label>
-        <input type="text" class="form-control" name="age" value="<%=teacher.getAge()%>">
-    </div>
-    <button type="submit" class="btn btn-success">提交</button>
-</form>
+    <form action="${pageContext.request.contextPath}/teacher?method=update" method="post">
+        <input type="hidden" name="id" value="${teacher.id}">
+        <div class="form-group">
+            <label>姓名</label>
+            <input type="text" class="form-control" name="name" value="${teacher.name}">
+        </div>
+        <div class="form-group">
+            <label>地址</label>
+            <input type="text" class="form-control" name="address" value="${teacher.address}">
+        </div>
+        <div class="form-group">
+            <label>年龄</label>
+            <input type="text" class="form-control" name="age" value="${teacher.age}">
+        </div>
+        <button type="submit" class="btn btn-success">提交</button>
+    </form>
 
 </body>
 </html>
