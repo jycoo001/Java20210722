@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    <a class="btn btn-success" href="<%=request.getContextPath()%>/student?method=getBanjiInsert">添加</a>
+    <a class="btn btn-success" href="<%=request.getContextPath()%>/student_insert.jsp">添加</a>
     <hr/>
     <table class="table table-bordered table-striped table-hover tab-content">
         <tr>

@@ -33,20 +33,25 @@
 
         <div class="form-group">
             <label>班级</label>
-            <select name="banjiId" class="form-control">
-            <%
-                for (Banji banji : banjiList) {
-            %>
-
-                    <option value="<%=banji.getId()%>"><%=banji.getName()%></option>
-
-            <%
-                }
-            %>
+            <select id="banjiId" name="banjiId" class="form-control">
             </select>
         </div>
         <button type="submit" class="btn btn-success">提交</button>
     </form>
+    <script src="<%=request.getContextPath()%>/static/jquery-2.1.4.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+                $.post(
+                    '<%=request.getContextPath()%>/banji?method=selectAll',
+                    function (jsonList) {
+                        $(jsonList).each(function () {
+                            $('#banjiId').append('<option value="' + this.id + '">' + this.name + '</option>');
+                        });
+                    },
+                    'json'
+                );
+        });
+    </script>
 
 </body>
 </html>

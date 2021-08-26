@@ -1,6 +1,5 @@
 package com.situ.javaWeb.servlet;
 
-import com.situ.javaWeb.entity.Banji;
 import com.situ.javaWeb.entity.Student;
 import com.situ.javaWeb.util.JDBCUtil;
 import com.situ.javaWeb.util.pageInfo;
@@ -17,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
@@ -44,62 +42,8 @@ public class StudentServlet extends HttpServlet {
                 break;
             case "selectOne":
                 selectOne(req, resp);
-            case "getBanjiInsert":
-                getBanjiInsert(req, resp);
                 break;
         }
-    }
-
-    private void getBanjiInsert(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("StudentServlet.getBanjiInsert");
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        List<Banji> list = new ArrayList<>();
-        try {
-            connection = JDBCUtil.getConnection();
-            String sql = "select id,name from banji";
-            statement = connection.prepareStatement(sql);
-            System.out.println(statement);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                Banji banji = new Banji(id, name);
-                list.add(banji);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }finally {
-            JDBCUtil.closepre(connection, statement, resultSet);
-        }
-        req.setAttribute("banjiList", list);
-        req.getRequestDispatcher("/student_insert.jsp").forward(req, resp);
-    }
-    private void getBanjiEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("StudentServlet.getBanjiEdit");
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        List<Banji> list = new ArrayList<>();
-        try {
-            connection = JDBCUtil.getConnection();
-            String sql = "select id,name from banji";
-            statement = connection.prepareStatement(sql);
-            System.out.println(statement);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                Banji banji = new Banji(id, name);
-                list.add(banji);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }finally {
-            JDBCUtil.closepre(connection, statement, resultSet);
-        }
-        req.setAttribute("banjiList", list);
     }
 
     private void selectOne(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -128,7 +72,6 @@ public class StudentServlet extends HttpServlet {
             JDBCUtil.closepre(connection,statement,resultSet);
         }
         req.setAttribute("student", student);
-        getBanjiEdit(req, resp);
         req.getRequestDispatcher("/student_edit.jsp").forward(req,resp);
     }
 
@@ -167,7 +110,6 @@ public class StudentServlet extends HttpServlet {
         String sex = req.getParameter("sex");
         int age = Integer.parseInt(req.getParameter("age"));
         int banjiId = Integer.parseInt(req.getParameter("banjiId"));
-
        try {
            connection = JDBCUtil.getConnection();
            String sql = "insert into student(sex,sname,age,banjiId) value(?,?,?,?)";
@@ -184,7 +126,6 @@ public class StudentServlet extends HttpServlet {
        }finally {
            JDBCUtil.closepre(connection,statement,null);
        }
-
        resp.sendRedirect(req.getContextPath()+"/student");
 
     }
