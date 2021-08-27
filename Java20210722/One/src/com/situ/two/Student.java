@@ -1,6 +1,8 @@
 package com.situ.two;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {//对象实现序列化，反序列化! io流IO的IOTest testObj() {}中
     private int id;
     private String name;
     private int age;
