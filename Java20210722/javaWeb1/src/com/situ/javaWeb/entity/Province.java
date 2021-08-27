@@ -1,22 +1,22 @@
 package com.situ.javaWeb.entity;
 
 public class Province {
-    private int id;
+    private Integer id;
     private String province;
 
     public Province() {
     }
 
-    public Province(int id, String province) {
+    public Province(Integer id, String province) {
         this.id = id;
         this.province = province;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

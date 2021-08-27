@@ -1,16 +1,16 @@
 package com.situ.javaWeb.entity;
 
 public class User {
-    private int id;
+    private Integer id;
     private String name;
     private String password;
-    private int age;
-    private int level;
+    private Integer age;
+    private Integer level;
 
     public User() {
     }
 
-    public User(int id, String name, String password, int age, int level) {
+    public User(Integer id, String name, String password, Integer age, Integer level) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -18,11 +18,11 @@ public class User {
         this.level = level;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,19 +42,19 @@ public class User {
         this.password = password;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

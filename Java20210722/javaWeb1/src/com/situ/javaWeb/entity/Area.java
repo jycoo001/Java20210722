@@ -1,22 +1,22 @@
 package com.situ.javaWeb.entity;
 
 public class Area {
-    private int id;
+    private Integer id;
     private String area;
 
     public Area() {
     }
 
-    public Area(int id, String area) {
+    public Area(Integer id, String area) {
         this.id = id;
         this.area = area;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

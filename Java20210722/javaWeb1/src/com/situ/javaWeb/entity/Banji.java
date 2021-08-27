@@ -1,22 +1,22 @@
 package com.situ.javaWeb.entity;
 
 public class Banji {
-    private int id;
+    private Integer id;
     private String name;
 
     public Banji() {
     }
 
-    public Banji(int id, String name) {
+    public Banji(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

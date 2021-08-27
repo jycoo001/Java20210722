@@ -1,22 +1,22 @@
 package com.situ.javaWeb.entity;
 
 public class City {
-    private int id;
+    private Integer id;
     private String city;
 
     public City() {
     }
 
-    public City(int id, String city) {
+    public City(Integer id, String city) {
         this.id = id;
         this.city = city;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

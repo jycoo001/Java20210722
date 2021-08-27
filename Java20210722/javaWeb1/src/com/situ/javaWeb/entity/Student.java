@@ -1,25 +1,23 @@
 package com.situ.javaWeb.entity;
 
 public class Student {
-    private int id;
+    private Integer id;
     private String sname;
     private String sex;
-    private int age;
-    private int banjiId;
+    private Integer age;
+    private Integer banjiId;
 
     public Student() {
-        super();
-        System.out.println("Student.Student");
     }
 
-    public Student(int id, String sname, String sex, int age) {
+    public Student(Integer id, String sname, String sex, Integer age) {
         this.id = id;
         this.sname = sname;
         this.sex = sex;
         this.age = age;
     }
 
-    public Student(int id, String sname, String sex, int age, int banjiId) {
+    public Student(Integer id, String sname, String sex, Integer age, Integer banjiId) {
         this.id = id;
         this.sname = sname;
         this.sex = sex;
@@ -27,11 +25,11 @@ public class Student {
         this.banjiId = banjiId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,19 +49,19 @@ public class Student {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getBanjiId() {
+    public Integer getBanjiId() {
         return banjiId;
     }
 
-    public void setBanjiId(int banjiId) {
+    public void setBanjiId(Integer banjiId) {
         this.banjiId = banjiId;
     }
 
