@@ -17,7 +17,9 @@
 
 </head>
 <body>
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/student_insert.jsp">添加</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/student_insert.jsp?pageSize=${pageInfo.pageSize}">添加</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/student">返回首页</a>
+
     <hr/>
     <table class="table table-bordered table-striped table-hover tab-content">
         <tr>

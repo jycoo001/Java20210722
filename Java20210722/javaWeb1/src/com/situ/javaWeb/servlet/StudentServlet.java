@@ -113,7 +113,8 @@ public class StudentServlet extends HttpServlet {
         String sex = req.getParameter("sex");
         int age = Integer.parseInt(req.getParameter("age"));
         int banjiId = Integer.parseInt(req.getParameter("banjiId"));
-        int pageSize = 5;
+        String pageSizeStr = req.getParameter("pageSize");
+        int pageSize = Integer.parseInt(pageSizeStr);
        try {
            connection = JDBCUtil.getConnection();
            String sql = "insert into student(sex,sname,age,banjiId) value(?,?,?,?)";
@@ -133,7 +134,6 @@ public class StudentServlet extends HttpServlet {
         int totalCount = getCount();
         int totalpage = (int)Math.ceil((double)totalCount / pageSize);
        resp.sendRedirect(req.getContextPath()+"/student?pageNumber="+totalpage);
-
     }
 
     private void deleteById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -200,6 +200,7 @@ public class StudentServlet extends HttpServlet {
         int totalCount = getCount();
         int totalpage = (int)Math.ceil((double)totalCount / pageSize);
         pageInfo pageInfo1 = new pageInfo(list,pageNumber,totalpage,pageSize);
+        System.out.println(pageInfo1);
         req.setAttribute("pageInfo",pageInfo1);
         req.getRequestDispatcher("/student_list.jsp").forward(req,resp);
     }

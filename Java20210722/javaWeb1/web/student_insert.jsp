@@ -14,7 +14,9 @@
 
 </head>
 <body>
+
     <form action="${pageContext.request.contextPath}/student?method=insert" method="post">
+        <input type="hidden" value="${param.pageSize}" name="pageSize">
         <div class="form-group">
             <label>姓名</label>
             <input type="text" class="form-control" name="sname" placeholder="姓名">
