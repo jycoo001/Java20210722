@@ -8,8 +8,8 @@ public class Student implements Serializable {//对象实现序列化，反序�
     private int age;
 
     public Student() {
-        super();
-        System.out.println("Student.Student");
+        //super();
+        //System.out.println("Student.Student");
     }
 
     public Student(int id, String name, int age) {
