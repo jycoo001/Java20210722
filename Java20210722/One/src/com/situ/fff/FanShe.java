@@ -40,4 +40,5 @@ public class FanShe {
         Student student = new Student();
         Class clazz3 = student.getClass();
     }
+
 }
