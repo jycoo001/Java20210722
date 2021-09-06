@@ -2,6 +2,7 @@ package com.situ.javaWeb.servlet;
 
 import com.situ.javaWeb.entity.User;
 import com.situ.javaWeb.util.JDBCUtil;
+import com.situ.javaWeb.util.MD5Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,12 +56,13 @@ public class UserServlet extends HttpServlet {
         User user = null;
         String name = req.getParameter("name");
         String password = req.getParameter("password");
+        String password1 = MD5Utils.MD5(password);
         try {
             connection = JDBCUtil.getConnection();
             String sql = "select id,name,password,age,level from user where name=? and password=?";
             statement = connection.prepareStatement(sql);
             statement.setString(1,name);
-            statement.setString(2,password);
+            statement.setString(2,password1);
             System.out.println(statement);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
