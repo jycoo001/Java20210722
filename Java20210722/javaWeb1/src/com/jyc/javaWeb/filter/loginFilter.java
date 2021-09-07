@@ -28,10 +28,13 @@ public class loginFilter implements Filter {
 
 
         if (servletPath.equals("/login.jsp")
-                || (servletPath.equals("/user")&&method.equals("login"))
+                || (servletPath.equals("/user") && method.equals("login"))
                 || servletPath.equals("/fail.jsp")
+                || servletPath.equals("/register.jsp")
+                || (servletPath.equals("/user") && method.equals("register"))
                 || servletPath.equals("/code")
                 || servletPath.endsWith(".css")
+                || servletPath.endsWith(".jpg")
                 || servletPath.endsWith(".js")) {
             chain.doFilter(request, response);
             return;

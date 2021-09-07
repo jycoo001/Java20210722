@@ -30,6 +30,52 @@ public class UserServlet extends HttpServlet {
             case "logout":
                 logout(req, resp);
                 break;
+            case "register":
+                register(req, resp);
+                break;
+        }
+    }
+
+    private void register(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String code = req.getParameter("code");
+        HttpSession session = req.getSession();
+        String sessionCode = (String) session.getAttribute("sessionCode");
+        if (!sessionCode.equals(code)) {
+            resp.sendRedirect(req.getContextPath()+"/register.jsp");
+            return;
+        }
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        User user = null;
+        int n = 0;
+        String name = req.getParameter("name");
+        String password = req.getParameter("password");
+        int age = 20;
+        int level = 1;
+        String password1 = MD5Utils.MD5(password);
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "insert into user(name, password, age, level) value(?, ?, ?, ?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,name);
+            statement.setString(2,password1);
+            statement.setInt(3, age);
+            statement.setInt(4, level);
+            System.out.println(statement);
+            n = statement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            JDBCUtil.closepre(connection, statement, resultSet);
+        }
+        if (n != 0) {
+            System.out.println("注册成功！");
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+        }else {
+            resp.sendRedirect(req.getContextPath()+"/fail.jsp");
         }
     }
 

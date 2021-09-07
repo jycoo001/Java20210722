@@ -9,7 +9,7 @@
 
 <html>
 <head>
-    <title>login</title>
+    <title>register</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/bootstrap-3.4.1-dist/css/bootstrap.css"/>
     <style type="text/css" >
         .div1{
@@ -19,24 +19,15 @@
         body{
             background-image: url("${pageContext.request.contextPath}/static/jpg/1.jpg");
         }
-        .fl{
-            float: left;
-        }
-        .fr{
-            float: right;
-        }
-        .clear{
-            clear: both;
-        }
 
     </style>
 </head>
 <body>
     <div class="div1">
-        <h1 align="center">登录</h1>
+        <h1 align="center">注册</h1>
     </div>
     <div>
-        <form action="${pageContext.request.contextPath}/user?method=login" method="post" class="form-horizontal">
+        <form action="${pageContext.request.contextPath}/user?method=register" method="post" class="form-horizontal">
             <div class="form-group">
                 <label for="inputName1" class="col-sm-2 control-label">姓名：</label>
                 <div class="col-sm-7">
@@ -60,12 +51,10 @@
             </div>
 
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10 fl">
-                    <input type="submit"  class="btn btn-success " value="登录">
-                    <input type="button" onclick="location.href='${pageContext.request.contextPath}/register.jsp'" class="btn btn-warning" value="注册">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit"  class="btn btn-success " value="注册">
                 </div>
             </div>
-
         </form>
     </div>
 
