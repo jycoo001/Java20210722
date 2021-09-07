@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.situ.javaWeb.entity.Banji" %><%--
+<%@ page import="com.jyc.javaWeb.entity.Banji" %><%--
   Created by IntelliJ IDEA.
   User: 12430
   Date: 2021/8/18

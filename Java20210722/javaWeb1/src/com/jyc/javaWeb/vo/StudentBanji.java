@@ -1,4 +1,4 @@
-package com.situ.javaWeb.vo;
+package com.jyc.javaWeb.vo;
 
 public class StudentBanji {
     private int studentId;

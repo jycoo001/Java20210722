@@ -1,8 +1,8 @@
-package com.situ.javaWeb.servlet;
+package com.jyc.javaWeb.servlet;
 
-import com.situ.javaWeb.entity.User;
-import com.situ.javaWeb.util.JDBCUtil;
-import com.situ.javaWeb.util.MD5Utils;
+import com.jyc.javaWeb.entity.User;
+import com.jyc.javaWeb.util.JDBCUtil;
+import com.jyc.javaWeb.util.MD5Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

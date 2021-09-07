@@ -1,10 +1,10 @@
-package com.situ.javaWeb.servlet;
+package com.jyc.javaWeb.servlet;
 
-import com.situ.javaWeb.entity.Area;
-import com.situ.javaWeb.entity.City;
-import com.situ.javaWeb.entity.Province;
-import com.situ.javaWeb.util.JDBCUtil;
-import com.situ.javaWeb.util.JSONUtil;
+import com.jyc.javaWeb.entity.Area;
+import com.jyc.javaWeb.util.JDBCUtil;
+import com.jyc.javaWeb.entity.City;
+import com.jyc.javaWeb.entity.Province;
+import com.jyc.javaWeb.util.JSONUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

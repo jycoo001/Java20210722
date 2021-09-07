@@ -1,4 +1,4 @@
-package com.situ.javaWeb.filter;
+package com.jyc.javaWeb.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

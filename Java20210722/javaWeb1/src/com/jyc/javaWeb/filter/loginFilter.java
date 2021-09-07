@@ -1,6 +1,6 @@
-package com.situ.javaWeb.filter;
+package com.jyc.javaWeb.filter;
 
-import com.situ.javaWeb.entity.User;
+import com.jyc.javaWeb.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

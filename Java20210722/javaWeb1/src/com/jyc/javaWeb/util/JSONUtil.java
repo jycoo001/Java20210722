@@ -1,4 +1,4 @@
-package com.situ.javaWeb.util;
+package com.jyc.javaWeb.util;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

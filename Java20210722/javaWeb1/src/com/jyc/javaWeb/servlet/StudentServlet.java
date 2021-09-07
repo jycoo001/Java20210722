@@ -1,8 +1,9 @@
-package com.situ.javaWeb.servlet;
+package com.jyc.javaWeb.servlet;
 
-import com.situ.javaWeb.entity.Teacher;
-import com.situ.javaWeb.util.JDBCUtil;
-import com.situ.javaWeb.util.pageInfo;
+import com.jyc.javaWeb.entity.Student;
+import com.jyc.javaWeb.util.JDBCUtil;
+import com.jyc.javaWeb.util.pageInfo;
+import com.jyc.javaWeb.vo.StudentBanji;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +17,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet("/teacher")
-public class TeacherServlet extends HttpServlet {
+@WebServlet("/student")
+public class StudentServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("TeacherServlet.service");
+        System.out.println("StudentServlet.service");
         //req.setCharacterEncoding("UTF-8");
         String method = req.getParameter("method");
         if (method == null||method.equals("")){
@@ -41,6 +42,7 @@ public class TeacherServlet extends HttpServlet {
                 break;
             case "selectOne":
                 selectOne(req, resp);
+                break;
         }
     }
 
@@ -48,45 +50,51 @@ public class TeacherServlet extends HttpServlet {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Teacher teacher = null;
+        Student student = null;
         String id = req.getParameter("id");
+        String pageNumber = req.getParameter("pageNumber");
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "select * from teacher where id=?";
+            String sql = "select * from student where id=?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1,Integer.parseInt(id));
             System.out.println(statement);
             resultSet = statement.executeQuery();
             if(resultSet.next()){
-                String name = resultSet.getString("name");
-                String address = resultSet.getString("address");
+                String sname = resultSet.getString("sname");
+                String sex = resultSet.getString("sex");
                 int age = resultSet.getInt("age");
-                teacher = new Teacher(Integer.parseInt(id),name,age,address);
+                int banjiId = resultSet.getInt("banjiId");
+                student = new Student(Integer.parseInt(id),sname,sex,age,banjiId);
             }
         }catch (SQLException throwables) {
             throwables.printStackTrace();
         }finally {
             JDBCUtil.closepre(connection,statement,resultSet);
         }
-        req.setAttribute("teacher", teacher);
-        req.getRequestDispatcher("teacher_edit.jsp").forward(req,resp);
+        req.setAttribute("student", student);
+        req.setAttribute("pageNumber",pageNumber);
+        req.getRequestDispatcher("/student_edit.jsp").forward(req,resp);
     }
 
     private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Connection connection = null;
         PreparedStatement statement = null;
         String id = req.getParameter("id");
-        String name = req.getParameter("name");
-        String address = req.getParameter("address");
+        String sname = req.getParameter("sname");
+        String sex = req.getParameter("sex");
         String age = req.getParameter("age");
+        String banjiId = req.getParameter("banjiId");
+        String pageNumber = req.getParameter("pageNumber");
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "update teacher set name=?,address=?,age=? where id=?";
+            String sql = "update student set sex=?,sname=?,age=?,banjiId=? where id=?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1,name);
-            statement.setString(2,address);
+            statement.setString(1,sex);
+            statement.setString(2,sname);
             statement.setInt(3,Integer.parseInt(age));
-            statement.setInt(4,Integer.parseInt(id));
+            statement.setInt(4,Integer.parseInt(banjiId));
+            statement.setInt(5,Integer.parseInt(id));
             System.out.println(statement);
             int count = statement.executeUpdate();
             System.out.println("insert count:" + count);
@@ -95,25 +103,26 @@ public class TeacherServlet extends HttpServlet {
         }finally {
             JDBCUtil.closepre(connection,statement,null);
         }
-        resp.sendRedirect(req.getContextPath()+"/teacher");
+        resp.sendRedirect(req.getContextPath()+"/student?method=selectAll&pageNumber="+pageNumber);
     }
 
     private void insert(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Connection connection = null;
         PreparedStatement statement = null;
-        String name = req.getParameter("name");
-        String address = req.getParameter("address");
-        String age = req.getParameter("age");
-        if(name==null||address==null||age==null||name.equals("")||address.equals("")||age.equals("")) {
-            resp.sendRedirect(req.getContextPath()+"/teacher");
-        }
+        String sname = req.getParameter("sname");
+        String sex = req.getParameter("sex");
+        int age = Integer.parseInt(req.getParameter("age"));
+        int banjiId = Integer.parseInt(req.getParameter("banjiId"));
+        String pageSizeStr = req.getParameter("pageSize");
+        int pageSize = Integer.parseInt(pageSizeStr);
        try {
            connection = JDBCUtil.getConnection();
-           String sql = "insert into teacher(name,address,age) value(?,?,?)";
+           String sql = "insert into student(sex,sname,age,banjiId) value(?,?,?,?)";
            statement = connection.prepareStatement(sql);
-           statement.setString(1,name);
-           statement.setString(2,address);
-           statement.setInt(3,Integer.parseInt(age));
+           statement.setString(1,sex);
+           statement.setString(2,sname);
+           statement.setInt(3,age);
+           statement.setInt(4,banjiId);
            System.out.println(statement);
            int count = statement.executeUpdate();
            System.out.println("insert count:" + count);
@@ -122,18 +131,19 @@ public class TeacherServlet extends HttpServlet {
        }finally {
            JDBCUtil.closepre(connection,statement,null);
        }
-
-       resp.sendRedirect(req.getContextPath()+"/teacher");
-
+        int totalCount = getCount();
+        int totalpage = (int)Math.ceil((double)totalCount / pageSize);
+       resp.sendRedirect(req.getContextPath()+"/student?pageNumber="+totalpage);
     }
 
     private void deleteById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String id = req.getParameter("id");
+        String pageNumber = req.getParameter("pageNumber");
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "delete from teacher where id = ?";
+            String sql = "delete from student where id = ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1,Integer.parseInt(id));
             System.out.println(statement);
@@ -144,12 +154,11 @@ public class TeacherServlet extends HttpServlet {
         }finally {
             JDBCUtil.closepre(connection,statement,null);
         }
-
-        resp.sendRedirect(req.getContextPath()+"/teacher");
+        resp.sendRedirect(req.getContextPath()+"/student?method=selectAll&pageNumber="+pageNumber);
     }
 
     private void selectAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArrayList<Teacher> list = new ArrayList<>();
+        ArrayList<StudentBanji> list = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -166,19 +175,22 @@ public class TeacherServlet extends HttpServlet {
         int offset = (pageNumber-1) * pageSize;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "select id,name,address,age from teacher limit ?,?";
+            String sql = "SELECT s.id as studentId,s.sname as studentSname,s.sex as studentSex,s.age as studentAge,b.Name as banjiName\n" +
+                    "FROM student as s INNER JOIN banji as b\n" +
+                    "ON s.banjiId=b.id limit ?,?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1,offset);
             statement.setInt(2,pageSize);
             System.out.println(statement);
             resultSet =  statement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String address = resultSet.getString("address");
-                int age = resultSet.getInt("age");
-                Teacher teacher = new Teacher(id,name,age,address);
-                list.add(teacher);
+                int studentId = resultSet.getInt("studentId");
+                String studentSname = resultSet.getString("studentSname");
+                String studentSex = resultSet.getString("studentSex");
+                int studentAge = resultSet.getInt("studentAge");
+                String banjiName = resultSet.getString("banjiName");
+                StudentBanji student = new StudentBanji(studentId, studentSname, studentSex, studentAge, banjiName);
+                list.add(student);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -188,8 +200,9 @@ public class TeacherServlet extends HttpServlet {
         int totalCount = getCount();
         int totalpage = (int)Math.ceil((double)totalCount / pageSize);
         pageInfo pageInfo1 = new pageInfo(list,pageNumber,totalpage,pageSize);
+        System.out.println(pageInfo1);
         req.setAttribute("pageInfo",pageInfo1);
-        req.getRequestDispatcher("/teacher_list.jsp").forward(req,resp);
+        req.getRequestDispatcher("/student_list.jsp").forward(req,resp);
     }
 
     private int getCount() {
@@ -199,7 +212,7 @@ public class TeacherServlet extends HttpServlet {
         int totalCount = 0;
         try {
             connection = JDBCUtil.getConnection();
-            String sql = "select count(*) from teacher";
+            String sql = "select count(*) from student";
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -211,5 +224,6 @@ public class TeacherServlet extends HttpServlet {
             JDBCUtil.closepre(connection, statement, resultSet);
         }
         return totalCount;
+
     }
 }

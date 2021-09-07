@@ -1,4 +1,4 @@
-package com.situ.javaWeb.servlet;
+package com.jyc.javaWeb.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

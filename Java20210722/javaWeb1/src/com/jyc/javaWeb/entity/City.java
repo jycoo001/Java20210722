@@ -1,4 +1,4 @@
-package com.situ.javaWeb.entity;
+package com.jyc.javaWeb.entity;
 
 public class City {
     private Integer id;

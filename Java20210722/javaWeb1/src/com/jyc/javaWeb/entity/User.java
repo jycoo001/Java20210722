@@ -1,20 +1,21 @@
-package com.situ.javaWeb.entity;
+package com.jyc.javaWeb.entity;
 
-public class Teacher {
+public class User {
     private Integer id;
     private String name;
+    private String password;
     private Integer age;
-    private String address;
+    private Integer level;
 
-    public Teacher() {
-        System.out.println("Teacher.Teacher");
+    public User() {
     }
 
-    public Teacher(Integer id, String name, Integer age, String address) {
+    public User(Integer id, String name, String password, Integer age, Integer level) {
         this.id = id;
         this.name = name;
+        this.password = password;
         this.age = age;
-        this.address = address;
+        this.level = level;
     }
 
     public Integer getId() {
@@ -33,6 +34,14 @@ public class Teacher {
         this.name = name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Integer getAge() {
         return age;
     }
@@ -41,21 +50,22 @@ public class Teacher {
         this.age = age;
     }
 
-    public String getAddress() {
-        return address;
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     @Override
     public String toString() {
-        return "Teacher{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 ", age=" + age +
-                ", address='" + address + '\'' +
+                ", level=" + level +
                 '}';
     }
 }

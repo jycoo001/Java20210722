@@ -1,4 +1,4 @@
-package com.situ.javaWeb.servlet;
+package com.jyc.javaWeb.servlet;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;

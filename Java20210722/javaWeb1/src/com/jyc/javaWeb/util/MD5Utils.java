@@ -1,4 +1,4 @@
-package com.situ.javaWeb.util;
+package com.jyc.javaWeb.util;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
