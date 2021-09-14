@@ -1,7 +1,7 @@
-<%@ page import="com.situ.javaWeb.entity.Student" %>
+<%@ page import="com.jyc.javaWeb.entity.Student" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.situ.javaWeb.entity.Banji" %><%--
+<%@ page import="com.jyc.javaWeb.entity.Banji" %><%--
   Created by IntelliJ IDEA.
   User: 12430
   Date: 2021/8/18
