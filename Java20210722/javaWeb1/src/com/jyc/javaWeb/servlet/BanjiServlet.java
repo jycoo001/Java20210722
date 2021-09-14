@@ -3,6 +3,7 @@ package com.jyc.javaWeb.servlet;
 import com.jyc.javaWeb.entity.Banji;
 import com.jyc.javaWeb.util.JDBCUtil;
 import com.jyc.javaWeb.util.JSONUtil;
+import com.jyc.javaWeb.vo.BanjiTongJi;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,43 @@ public class BanjiServlet extends HttpServlet {
             case "selectAll":
                 selectAll(req, resp);
                 break;
+            case "selectbanjitongji":
+                selectbanjitongji(req, resp);
+                break;
         }
+    }
+
+    private void selectbanjitongji(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("BanjiServlet.selectbanjitongji");
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<BanjiTongJi> list = new ArrayList<>();
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "select b.name as name, count(*) as count" +
+                    " from student as s inner join banji as b" +
+                    " on s.banjiId=b.id" +
+                    " group by b.id";
+            statement = connection.prepareStatement(sql);
+            System.out.println(statement);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                int count = resultSet.getInt("count");
+
+                BanjiTongJi banjiTongJi = new BanjiTongJi(name, count);
+                list.add(banjiTongJi);
+            }
+            for (BanjiTongJi banjiTongJi : list) {
+                System.out.println(banjiTongJi);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            JDBCUtil.closepre(connection, statement, resultSet);
+        }
+        JSONUtil.array2Json(list, resp);
     }
 
     private void selectAll(HttpServletRequest req, HttpServletResponse resp) {

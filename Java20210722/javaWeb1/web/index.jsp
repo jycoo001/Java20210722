@@ -56,7 +56,7 @@
 							</dd>
 							<dd>
 								<a href="javascript:;"
-								   data-url="${path}/dept/getDeptCountPage"
+								   data-url="${pageContext.request.contextPath}/echarts.jsp"
 								   class="site-demo-active">统计图表</a>
 							</dd>
 						</dl>
