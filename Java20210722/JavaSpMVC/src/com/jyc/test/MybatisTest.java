@@ -1,26 +1,36 @@
 package com.jyc.test;
 
 import com.jyc.util.MybatisUtil;
+import com.jyc.vo.BanJiStudent;
 import com.jyc.vo.StudentBanJi;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MybatisTest {
 
     @Test
     public void test1() throws IOException {
         System.out.println("MybatisTest.test1");
-        SqlSession sqlSession = MybatisUtil.MybatisXml();
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
         //selectAll
-        List<StudentBanJi> list = sqlSession.selectList("student.selectAll");
+        int pageNo = 1;
+        int pageSize = 5;
+        int offset = (pageNo - 1) * pageSize;
+        Map<String, Object> map = new HashMap<>();
+        map.put("offset", offset);
+        map.put("pageSize", pageSize);
+        map.put("sname", "贾");
+        List<StudentBanJi> list = sqlSession.selectList("student.selectLike", map);
         for (StudentBanJi studentBanJi : list) {
             System.out.println(studentBanJi);
         }
         //selectById
-       /* Student student = sqlSession.selectOne("student.selectById", 2);
+        /*Student student = sqlSession.selectOne("student.selectById", 2);
         System.out.println(student);*/
 
         //insert+selectAll
@@ -43,5 +53,19 @@ public class MybatisTest {
         int result =  sqlSession.update("student.update", student);
         System.out.println(result);
         sqlSession.commit();*/
+    }
+
+    @Test
+    public void test2() throws IOException {
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        List<BanJiStudent> banJiStudents = sqlSession.selectList("banji.selectBanjiStudent");
+        for (BanJiStudent banJi : banJiStudents) {
+            //System.out.println(banJi.getId()+" "+banJi.getName());
+            System.out.println(banJi);
+            /*List<Student> list = banJi.getList();
+            for (Student student : list) {
+                System.out.println(student);
+            }*/
+        }
     }
 }

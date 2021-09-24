@@ -21,7 +21,7 @@ public class MybatisUtil {
         }
     }
 
-    public static SqlSession MybatisXml() throws IOException {
+    public static SqlSession getSqlSession() throws IOException {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         return sqlSession;
     }

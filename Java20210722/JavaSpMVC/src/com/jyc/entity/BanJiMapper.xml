@@ -3,29 +3,37 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="student">
-	<resultMap id="studentMap" type="Student">
+<mapper namespace="banji">
+	<resultMap id="banjiMap" type="BanJiStudent">
 		<id column="id" property="id"></id>
-		<result column="sname" property="sname"></result>
-		<result column="sex" property="sex"></result>
-		<result column="age" property="age"></result>
-		<result column="banjiId" property="banjiId"></result>
+		<result column="name" property="name"></result>
+		<collection property="list" ofType="student">
+			<id property="id" column="studentId"></id>
+			<result property="sname" column="sname"></result>
+			<result property="sex" column="sex"></result>
+			<result property="age" column="age"></result>
+		</collection>
 	</resultMap>
 	<sql id="selectName">
-		id,sname,age,sex,banjiId
+		id,name
 	</sql>
 	<select id="selectTotalCount" resultType="Integer">
-		select count(*) as count from student
+		select count(*) as count from banji
 	</select>
 	<!-- 通过id查找学生 -->
 	<!--<select id="selectById" parameterType="Integer" resultType="Student">
 		select <include refid="selectName"></include> from student where id=#{id}
 	</select>-->
-	<select id="selectById" parameterType="Integer" resultMap="studentMap">
+	<select id="selectById" parameterType="Integer" resultType="BanJi">
 		select <include refid="selectName"></include> from student where id=#{id}
 	</select>
 
-	<select id="selectAll" parameterType="Map" resultType="StudentBanJi">
+	<select id="selectBanjiStudent" resultMap="banjiMap">
+		select b.id,b.name,s.id as studentId,s.sname,s.sex,s.age
+		from banji as b inner join student as s
+		on b.id=s.banjiId
+	</select>
+	<!--<select id="selectAll" parameterType="Map" resultType="StudentBanJi">
 		select s.id,s.sname,s.age,s.sex,b.name as banjiName
 		from student as s INNER join banji as b
 		on s.banjiId=b.id
@@ -37,21 +45,21 @@
 		from student as s inner join banji as b on s.banjiId = b.id
 		where s.sname like concat('%',#{sname},'%')
 		limit #{offset}, #{pageSize}
-	</select>
+	</select>-->
 
 	<delete id="deleteById" parameterType="Integer">
-		delete from student where id=#{id}
+		delete from banji where id=#{id}
 	</delete>
 
 	<!--<insert id="insert" parameterType="com.jyc.entity.Student">
 		insert into student(sex,sname,age,banjiId) value(#{sex},#{sname},#{age},#{banjiId})
 	</insert>-->
-	<insert id="insert" parameterType="Student">
-		insert into student(sex,sname,age,banjiId) value (#{sex},#{sname},#{age},#{banjiId})
+	<insert id="insert" parameterType="BanJi">
+		insert into banji(name) value (#{name})
 	</insert>
 
-	<update id="update" parameterType="Student">
-		update student set sex=#{sex},sname=#{sname},age=#{age},banjiId=#{banjiId} where id=#{id}
+	<update id="update" parameterType="BanJI">
+		update banji set name=#{name} where id=#{id}
 	</update>
 	
 </mapper>
