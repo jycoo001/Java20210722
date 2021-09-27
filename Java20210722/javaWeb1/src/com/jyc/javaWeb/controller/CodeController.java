@@ -1,4 +1,4 @@
-package com.jyc.javaWeb.servlet;
+package com.jyc.javaWeb.controller;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import java.util.Random;
  * 
  */
 @WebServlet("/code")
-public class CodeServlet extends HttpServlet {
+public class CodeController extends HttpServlet {
 	private static final long serialVersionUID = 2376992603034716655L;
 	private final Font mFont = new Font("Arial Black", Font.PLAIN, 15); // 设置字体
 	private final int lineWidth = 2; // 干扰线的长度=1.414*lineWidth

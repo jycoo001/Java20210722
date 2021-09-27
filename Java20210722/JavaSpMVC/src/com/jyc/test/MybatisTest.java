@@ -24,7 +24,9 @@ public class MybatisTest {
         Map<String, Object> map = new HashMap<>();
         map.put("offset", offset);
         map.put("pageSize", pageSize);
-        map.put("sname", "贾");
+        //map.put("sname", "贾");
+        //map.put("sex", "男");
+        map.put("age", 21);
         List<StudentBanJi> list = sqlSession.selectList("student.selectLike", map);
         for (StudentBanJi studentBanJi : list) {
             System.out.println(studentBanJi);

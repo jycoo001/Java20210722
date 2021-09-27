@@ -2,17 +2,17 @@ package com.jyc.javaWeb.util;
 
 import java.util.ArrayList;
 
-public class pageInfo<T> {
+public class PageInfo<T> {
     private ArrayList<T> list;
     private int pageNumber;//当前第几页
     private int totalPage;//一共有多少页
     private int pageSize;//一页有多少数据
 
-    public pageInfo() {
+    public PageInfo() {
         System.out.println("pageInfo.pageInfo");
     }
 
-    public pageInfo(ArrayList<T> list, int pageNumber, int totalPage, int pageSize) {
+    public PageInfo(ArrayList<T> list, int pageNumber, int totalPage, int pageSize) {
         this.list = list;
         this.pageNumber = pageNumber;
         this.totalPage = totalPage;

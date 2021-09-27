@@ -14,6 +14,7 @@
 	<sql id="selectName">
 		id,sname,age,sex,banjiId
 	</sql>
+
 	<select id="selectTotalCount" resultType="Integer">
 		select count(*) as count from student
 	</select>
@@ -32,15 +33,50 @@
 		limit #{offset}, #{pageSize}
 	</select>
 
-	<select id="selectLike" parameterType="Map" resultType="StudentBanJi">
+	<!--<select id="selectLike" parameterType="Map" resultType="StudentBanJi">
 		SELECT s.id,s.sname,s.sex,s.age,b.name as banjiName
 		from student as s inner join banji as b on s.banjiId = b.id
 		where s.sname like concat('%',#{sname},'%')
 		limit #{offset}, #{pageSize}
+	</select>-->
+	<select id="selectLike" parameterType="Map" resultType="StudentBanJi">
+		SELECT s.id,s.sname,s.sex,s.age,b.name as banjiName
+		from student as s inner join banji as b on s.banjiId = b.id
+		<where>
+			<if test="sname!=null and sname!='' ">
+				and s.sname like concat('%',#{sname},'%')
+			</if>
+			<if test="sex!=null and sex!='' ">
+				and s.sex=#{sex}
+			</if>
+			<if test="age!=null">
+				and age=#{age}
+			</if>
+		</where>
+		limit #{offset},#{pageSize}
 	</select>
 
+	<!--单独的id-->
 	<delete id="deleteById" parameterType="Integer">
 		delete from student where id=#{id}
+	</delete>
+
+	<!--数组-->
+	<delete id="deleteAllArray" parameterType="Integer">
+		delete from student
+		where id in
+		<foreach collection="array" open="(" close=")" item="id" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!--集合-->
+	<delete id="deleteAllList" parameterType="Integer">
+		delete from student
+		where id in
+		<foreach collection="list" open="(" close=")" item="id" separator=",">
+			#{id}
+		</foreach>
 	</delete>
 
 	<!--<insert id="insert" parameterType="com.jyc.entity.Student">
@@ -50,8 +86,26 @@
 		insert into student(sex,sname,age,banjiId) value (#{sex},#{sname},#{age},#{banjiId})
 	</insert>
 
-	<update id="update" parameterType="Student">
+	<!--<update id="update" parameterType="Student">
 		update student set sex=#{sex},sname=#{sname},age=#{age},banjiId=#{banjiId} where id=#{id}
+	</update>-->
+	<update id="update" parameterType="Student">
+		update student
+		<set>
+			<if test="sname!=null and sname!=''">
+				sname=#{sname},
+			</if>
+		    <if test="sex!=null and sex!=''">
+				sex=#{sex},
+			</if>
+			<if test="age!=null">
+				age=#{age},
+			</if>
+			<if test="banjiId!=null">
+				banjiId=#{banjiId},
+			</if>
+		</set>
+		where id=#{id}
 	</update>
 	
 </mapper>

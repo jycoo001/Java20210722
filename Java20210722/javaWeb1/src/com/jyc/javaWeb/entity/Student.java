@@ -10,6 +10,13 @@ public class Student {
     public Student() {
     }
 
+    public Student(String sname, String sex, Integer age, Integer banjiId) {
+        this.sname = sname;
+        this.sex = sex;
+        this.age = age;
+        this.banjiId = banjiId;
+    }
+
     public Student(Integer id, String sname, String sex, Integer age) {
         this.id = id;
         this.sname = sname;

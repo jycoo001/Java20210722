@@ -10,6 +10,18 @@ public class User {
     public User() {
     }
 
+    public User(String name, String password, Integer age, Integer level) {
+        this.name = name;
+        this.password = password;
+        this.age = age;
+        this.level = level;
+    }
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     public User(Integer id, String name, String password, Integer age, Integer level) {
         this.id = id;
         this.name = name;

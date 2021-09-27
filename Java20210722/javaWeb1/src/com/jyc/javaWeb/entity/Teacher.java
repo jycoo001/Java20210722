@@ -10,6 +10,12 @@ public class Teacher {
         System.out.println("Teacher.Teacher");
     }
 
+    public Teacher(String name, Integer age, String address) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+
     public Teacher(Integer id, String name, Integer age, String address) {
         this.id = id;
         this.name = name;

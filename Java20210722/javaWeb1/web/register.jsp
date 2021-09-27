@@ -43,6 +43,13 @@
             </div>
 
             <div class="form-group">
+                <label for="inputage1" class="col-sm-2 control-label">年龄：</label>
+                <div class="col-sm-7">
+                    <input type="text" name="age" class="form-control" id="inputage1" placeholder="age">
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="inputCode1" class="col-sm-2 control-label">验证码：</label>
                 <div class="col-sm-5">
                     <input type="text" name="code" class="form-control" id="inputCode1" placeholder="imageCode">
