@@ -22,9 +22,15 @@ public class JDBCTest1 {
         try {
             connection = JDBCUtil.getConnection();
             String sql = "select * from student where id >= ?";
+
+            connection.setAutoCommit(false);
+
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,setId);
             resultSet = preparedStatement.executeQuery();
+
+            connection.commit();
+
             ArrayList<Student> list = new ArrayList<>();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -38,6 +44,7 @@ public class JDBCTest1 {
                 System.out.println(student);
             }
         } catch (SQLException throwables) {
+            connection.rollback();
             throwables.printStackTrace();
         }finally {
             JDBCUtil.closepre(connection, preparedStatement, resultSet);

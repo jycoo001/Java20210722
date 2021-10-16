@@ -46,6 +46,7 @@ public class SqlDemo {
     }
 
     @Test
+    //工厂
     public void test2() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
         System.out.println("SqlDemo.test2");
         IDB db = DBFactory.creatDB();

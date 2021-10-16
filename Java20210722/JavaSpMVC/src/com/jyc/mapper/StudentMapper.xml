@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyc.mapper.StudentMapper">
+
+	<resultMap id="studentMap" type="Student">
+		<id column="id" property="id"></id>
+		<result column="sname" property="sname"></result>
+		<result column="sex" property="sex"></result>
+		<result column="age" property="age"></result>
+		<result column="banjiId" property="banjiId"></result>
+	</resultMap>
+
+	<sql id="selectName">
+		id,sname,age,sex,banjiId
+	</sql>
+
+	<select id="selectTotalCount" resultType="Integer">
+		select count(*) as count from student
+	</select>
+
+	<!-- 通过id查找学生 -->
+	<!--<select id="selectById" parameterType="Integer" resultType="Student">
+		select <include refid="selectName"></include> from student where id=#{id}
+	</select>-->
+
+	<select id="selectById" parameterType="Integer" resultMap="studentMap">
+		select <include refid="selectName"></include> from student where id=#{id}
+	</select>
+
+	<select id="selectAll" parameterType="Page" resultType="StudentBanJi">
+		select s.id,s.sname,s.age,s.sex,b.name as banjiName
+		from student as s INNER join banji as b
+		on s.banjiId=b.id
+		limit #{offset}, #{pageSize}
+	</select>
+
+	<!--<select id="selectLike" parameterType="Map" resultType="StudentBanJi">
+		SELECT s.id,s.sname,s.sex,s.age,b.name as banjiName
+		from student as s inner join banji as b on s.banjiId = b.id
+		where s.sname like concat('%',#{sname},'%')
+		limit #{offset}, #{pageSize}
+	</select>-->
+
+	<select id="selectLike" parameterType="Map" resultType="StudentBanJi">
+		SELECT s.id,s.sname,s.sex,s.age,b.name as banjiName
+		from student as s inner join banji as b on s.banjiId = b.id
+		<where>
+			<if test="sname!=null and sname!='' ">
+				and s.sname like concat('%',#{sname},'%')
+			</if>
+			<if test="sex!=null and sex!='' ">
+				and s.sex=#{sex}
+			</if>
+			<if test="age!=null">
+				and age=#{age}
+			</if>
+		</where>
+		limit #{offset},#{pageSize}
+	</select>
+
+	<!--单独的id-->
+	<delete id="deleteById" parameterType="Integer">
+		delete from student where id=#{id}
+	</delete>
+
+	<!--数组-->
+	<delete id="deleteAllArray" parameterType="Integer">
+		delete from student
+		where id in
+		<foreach collection="array" open="(" close=")" item="id" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!--集合-->
+	<delete id="deleteAllList" parameterType="Integer">
+		delete from student
+		where id in
+		<foreach collection="list" open="(" close=")" item="id" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!--<insert id="insert" parameterType="com.jyc.entity.Student">
+		insert into student(sex,sname,age,banjiId) value(#{sex},#{sname},#{age},#{banjiId})
+	</insert>-->
+	<insert id="insert" parameterType="Student">
+		insert into student(sex,sname,age,banjiId) value (#{sex},#{sname},#{age},#{banjiId})
+	</insert>
+
+	<!--<update id="update" parameterType="Student">
+		update student set sex=#{sex},sname=#{sname},age=#{age},banjiId=#{banjiId} where id=#{id}
+	</update>-->
+	<update id="update" parameterType="Student">
+		update student
+		<set>
+			<if test="sname!=null and sname!=''">
+				sname=#{sname},
+			</if>
+		    <if test="sex!=null and sex!=''">
+				sex=#{sex},
+			</if>
+			<if test="age!=null">
+				age=#{age},
+			</if>
+			<if test="banjiId!=null">
+				banjiId=#{banjiId},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+</mapper>
+  

@@ -15,6 +15,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int register(User user) {
-        return userDao.register(user);
+        int n = userDao.selectOne(user.getName());
+        if (n == 0) {
+            return n;
+        } else {
+            return userDao.register(user);
+        }
     }
 }

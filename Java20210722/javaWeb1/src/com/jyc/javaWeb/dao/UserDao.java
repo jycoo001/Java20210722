@@ -5,4 +5,5 @@ import com.jyc.javaWeb.entity.User;
 public interface UserDao {
     public User login(String name, String password);
     public int register(User user);
+    public int selectOne(String name);
 }

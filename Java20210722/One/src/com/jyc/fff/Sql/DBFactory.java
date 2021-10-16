@@ -8,7 +8,7 @@ public class DBFactory {
     //简单工厂
 
     public static IDB creatDB() throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-        FileInputStream fileInputStream = new FileInputStream("src/com/situ/fff/Sql/db.properties");
+        FileInputStream fileInputStream = new FileInputStream("src/com/jyc/fff/Sql/db.properties");
         //FileInputStream fileInputStream = new FileInputStream("../Java20210722/One/src/com/situ/fff/Sql/db.properties");
         //FileInputStream fileInputStream = new FileInputStream("D:\\idea_project\\Java20210722\\One\\src\\com\\situ\\fff\\Sql\\db.properties");
         Properties properties = new Properties();

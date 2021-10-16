@@ -47,12 +47,13 @@ public class UserController extends HttpServlet {
         Integer age = Integer.parseInt(req.getParameter("age"));
         int level = 1;
         String password1 = MD5Utils.MD5(password);
-        User user = new User(name, password, age, level);
+        User user = new User(name, password1, age, level);
         int n = userService.register(user);
         if (n != 0) {
             System.out.println("注册成功！");
             resp.sendRedirect(req.getContextPath() + "/login.jsp");
         }else {
+            System.out.println("注册失败！重名");
             resp.sendRedirect(req.getContextPath()+"/fail.jsp");
         }
     }

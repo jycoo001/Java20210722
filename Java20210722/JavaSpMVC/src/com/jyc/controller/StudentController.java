@@ -1,41 +1,58 @@
 package com.jyc.controller;
 
 import com.jyc.entity.Student;
+import com.jyc.service.StudentService;
+import com.jyc.util.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-
 @RequestMapping("/student")
 public class StudentController {
+    @Autowired
+    private StudentService studentService;
+
+
     @RequestMapping("/selectAll")
     //json 加上 @ResponseBody
-    public String selectAll() {
-        System.out.println("StudentController.selectAll");
-        return "/student_insert";
+    public String selectAll(Integer pageNumber, Integer pageSize, Model model) {
+        if (pageNumber == null) {
+            pageNumber = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 5;
+        }
+        PageInfo pageInfo = studentService.selectAll(pageNumber,pageSize);
+        model.addAttribute("pageInfo", pageInfo);
+        return "student/student_list";
     }
 
-    /*@RequestMapping("/insert")
-    public ModelAndView insert(Student student) {
-        System.out.println("StudentController.insert");
-        System.out.println(student);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("student", student);
-        modelAndView.setViewName("/student_info.jsp");
-        return modelAndView;
-    }*/
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String insert(Student student, Model model) {
-        System.out.println("StudentController.insert");
-        System.out.println(student);
+    @RequestMapping("/insert")
+    public String insert(Student student, Integer pageSize, Model model) {
+        int pageNumber = studentService.insert(student, pageSize);
+        return "redirect:/student/selectAll.action?pageNumber="+pageNumber+"&pageSize="+pageSize;
+    }
+
+    @RequestMapping("/selectById")
+    public String selectOne(Integer id, Integer pageNumber, Integer pageSize, Model model) {
+        Student student = studentService.selectOne(id);
         model.addAttribute("student", student);
-        return "/student_info";
+        model.addAttribute("pageNumber", pageNumber);
+        model.addAttribute("pageSize", pageSize);
+        return "student/student_edit";
     }
 
-    @RequestMapping("/selectOne")
-    public void selectOne(Integer id) {
-        System.out.println("StudentController.selectOne");
+    @RequestMapping("/update")
+    public String update(Student student, Integer pageNumber, Integer pageSize, Model model) {
+        studentService.update(student);
+        return "redirect:/student/selectAll.action?pageNumber=" + pageNumber + "&pageSize=" + pageSize;
+    }
+
+    @RequestMapping("/deleteById")
+    public String deleteById(Integer id, Integer pageNumber, Integer pageSize, Model model) {
+        studentService.deleteById(id);
+        return "redirect:/student/selectAll.action?pageNumber=" + pageNumber + "&pageSize=" + pageSize;
     }
 }
