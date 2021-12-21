@@ -1,0 +1,161 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+}
+.picture {
+	position: absolute;
+	z-index: 1000;
+	width: 300px;
+	height:300px;
+	border: 1px soild #333;
+	border-radius: 150px;
+}
+html, body {
+	height: calc(100%);
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.con {
+	padding: 10px;
+	height: 100%;
+}
+
+.div-form {
+	width: 100%;
+	background-color: rgb(255, 255, 255);
+	position: fixed;
+	left: 0;
+	top: 0;
+	outline: none;
+	z-index: 1000;
+}
+
+.hid-form {
+	width: 90%;
+	height: 80px;
+	margin: 0 auto;
+	padding-top: 10px;
+	user-select: none;
+}
+
+.hid-form form {
+	display: inline-block;
+}
+
+.hid-form form>input {
+	width: 120px;
+	height: 35px;
+}
+
+.hid-form form>input.id {
+	width: 50px;
+}
+.hid-form form>input.demo-input {
+	width: 160px;
+}
+.hid-form form>select {
+	width: 150px;
+	height: 35px;
+}
+
+.hid-form form>select.dep {
+	width: 150px;
+}
+
+
+.div-table {
+	width: 100%;
+	max-height: calc(100% - 176px);
+	overflow-y: scroll;
+	margin-top: 80px;
+	margin-bottom: 80px;
+}
+
+.tab {
+	border-collapse: collapse;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.tab tr>th, .tab tr>td {
+	border: 1px solid #333;
+	padding: 20px 40px;
+}
+
+.tab tr:nth-child(2n+1) {
+	background-color: rgb(221, 221, 193);
+	opacity: 0.8;
+}
+
+.tab tr:nth-child(2n) {
+	background-color: rgb(182, 207, 211);
+	opacity: 0.8;
+}
+
+.tab tr>th {
+	background-color: rgb(243, 243, 243);
+}
+
+.div-page {
+	width: 100%;
+	background-color: rgb(243, 243, 243);
+	user-select: none;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+
+.page {
+	width: 80%;
+	margin: 10px auto;
+	text-align: center;
+	user-select: none;
+}
+
+.page>span {
+	display: inline-block;
+	font-size: 18px;
+	margin-right: 10px;
+	margin-left: 10px;
+	border: 1px solid #333;
+	padding: 5px 25px;
+	cursor: pointer;
+}
+
+.page ul {
+	list-style-type: none;
+	display: inline-block;
+	padding: 0;
+}
+
+.page ul>li {
+	display: inline-block;
+	font-size: 18px;
+	margin-left: 5px;
+	margin-right: 5px;
+	cursor: pointer;
+	padding: 2px 10px;
+	border: 1px solid #333;
+}
+
+.page .sel {
+	background-color: #999;
+	color: white;
+}
+
+.page .select {
+	display: inline-block;
+	width: 50px;
+	height: 29px;
+}
+
+tr>th, tr>td {
+	text-align: center;
+}
+
+tr input.checkAll, tr input.check {
+	width: 20px;
+	height: 20px;
+}

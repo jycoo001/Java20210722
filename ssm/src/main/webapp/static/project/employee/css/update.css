@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+table {
+	border-collapse: collapse;
+}
+
+table td {
+	width: 300px;
+	height: 60px;
+	padding: 5px 10px;
+	text-align: left;
+	font-size: 25px;
+}
+
+table tr>td:first-child {
+	text-align: right;
+}
+
+input, select {
+	width: 600px;
+	height: 40px;
+	font-size: 25px;
+}
+
+fieldset {
+	border: 1px solid #333;
+}
+legend {
+	font-size: 19px;
+}
