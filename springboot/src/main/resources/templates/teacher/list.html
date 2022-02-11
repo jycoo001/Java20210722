@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+    <meta charset="UTF-8">
+    <title>教师列表页</title>
+    <link rel="stylesheet" th:href="@{/static/student/list.css}" href="../../static/student/list.css">
+</head>
+<body>
+   <div class="tab">
+       <table>
+           <thead>
+           <th>ID</th>
+           <th>编号</th>
+           <th>姓名</th>
+           <th>性别</th>
+           </thead>
+           <tbody>
+           <tr th:each="tea:${teachers}">
+               <td th:text="${tea.id}">1</td>
+               <td th:text="${tea.employeeId}">1023</td>
+               <td th:text="${tea.name}">张三</td>
+               <td th:text="${tea.gender}">男</td>
+           </tr>
+           </tbody>
+       </table>
+   </div>
+
+    <div class="page">
+        <div class="prev">《</div>
+        <ul class="pageU" >
+            <li class="pageN">xx</li>
+        </ul>
+        <div class="next">》</div>
+    </div>
+
+</body>
+</html>

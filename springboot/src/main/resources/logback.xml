@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+    <!-- 引入logback的默认配置 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 标准控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- 引用logback的defaults.xml中的变量CONSOLE_LOG_PATTERN，这个变量可以输出彩色日志 -->
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <!-- 普通黑白日志 -->
+            <!-- <Pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</Pattern> -->
+        </encoder>
+    </appender>
+
+    <!-- 滚动文件输出。配置输出文件路径时，注意windows系统以类似"d:/"开始 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>d:/logs/demo2/logFile.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>d:/logs/demo2/logFile-%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>5MB</maxFileSize>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{HH:mm:ss.SSS} %-5level %logger{80} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- 异步文件日志记录器 -->
+    <appender name="AsyncFILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <!-- 根Logger。开发模式，此处选择了控制台输出。对于生产模式，一般是将日志记录到文件 -->
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!-- 日志名称前缀mybatis.dao是在mybatis.xml中配置的。注意：在root中已指定了appender-ref，此处则无需指定，否则日志输出会重复 -->
+    <!-- 输出mybatis日志，用于开发时进行调试 -->
+    <logger name="mybatis.dao" level="DEBUG"/>
+
+</configuration>
