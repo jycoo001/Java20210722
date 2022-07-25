@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}" href="../../static/css/index.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/test.css}" href="../../static/css/test.css">
+    <script src="../../static/js/jquery-3.6.0.min.js" th:src="@{/static/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../../static/layer/layer.js" th:src="@{/static/layer/layer.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../../static/js/index.js" th:src="@{/static/js/index.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="first">
+    <span>在线考试系统</span>
+    <div class="jpg" data-url="user/user.html" th:style="'background:url(/'+${user.picture}+') no-repeat center center/cover'" th:attr="data-url=@{/toMy}"><a href="user/user.html" th:text="${user.name}" th:href="@{/toMy}">user</a></div>
+</div>
+<div class="white"></div>
+<div class="bod1">
+    <div class="form">
+
+    <form action="user.html" th:action="@{/my}" enctype="multipart/form-data" method="post">
+        <table>
+            <thead></thead>
+            <tbody>
+            <tr>
+                <td>姓名：</td>
+                <td><input type="text" name="name" value="xxx" placeholder="请输入姓名" th:value="${user.name}" /></td>
+            </tr>
+            <tr>
+                <td>电话</td>
+                <td><input type="text" name="phone" value="xxxxxxxxxxx" placeholder="请输入电话号" th:value="${user.phone}"/></td>
+            </tr>
+            <tr>
+                <td>头像</td>
+                <td><input type="file" name="picturex" autocomplete="off"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="提交"/></td>
+                <td><input type="reset" value="重置"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><h1><a href="../login.html" th:href="@{/logout}">退出系统</a></h1></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyc.employee.dao.EmployeeDAO">
+	<!-- 表示对AddressDAO接口的查询方法启用二级缓存，type属性用于指定缓存的实现类 -->
+	<!--<cache type="org.mybatis.caches.caffeine.CaffeineCache" />-->
+
+	<!-- 配置了一个sql片段 -->
+	<sql id="EmployeeColumns">
+		id,`name`,sex,birthday,salary,department_id,picture,address_id
+	</sql>
+
+	<resultMap type="Employee" id="EmployeeMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="sex" column="sex" />
+		<result property="birthday" column="birthday" />
+		<result property="salary" column="salary" />
+		<result property="picture" column="picture" />
+	</resultMap>
+
+	<!-- 配置查询结果集与对象之间的映射 -->
+	<resultMap type="Employee" id="EmployeeAllMap"
+		extends="EmployeeMap">
+		<association property="department" column="department_id"
+			select="com.jyc.employee.dao.DepartmentDAO.selectorOne" />
+		<association property="address" column="address_id"
+			select="com.jyc.employee.dao.AddressDAO.findById" />
+	</resultMap>
+
+	<!-- 查询所有员工，因为要分页，所以要指定排序字段 -->
+	<!-- id要和dao接口中的方法名匹配 -->
+	<select id="quertSelector" resultMap="EmployeeAllMap"
+		parameterType="Employee">
+		select
+		<include refid="EmployeeColumns" />
+		from t_employee
+		<where>
+			<if test="id!=null and id!=''">
+				and id=#{id}
+			</if>
+			<if test="name!=null and name!=''">
+				<bind name="likeName" value="'%'+name+'%'" />
+				and `name` like #{likeName}
+			</if>
+			<if test="sex!=null and sex!=''">
+				and sex=#{sex}
+			</if>
+			<if test="birthday!=null and birthday!=''">
+				and birthday=#{birthday}
+			</if>
+			<if test="fromTo!=null and fromTo!=''">
+				and birthday between #{start} and #{end}
+			</if>
+			<if test="salary!=null and salary!=''">
+				and salary=#{salary}
+			</if>
+			<if test="departmentId!=null and departmentId!=''">
+				and department_id=#{departmentId}
+			</if>
+			<if test="picture!=null and picture!=''">
+				picture=#{picture}
+			</if>
+		</where>
+		order by id
+	</select>
+
+	<!-- 根据id查找 -->
+	<select id="selectOne" resultMap="EmployeeAllMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="EmployeeColumns" />
+		from t_employee
+		where id=#{id}
+	</select>
+
+	<!-- 根据department_id查找 -->
+	<select id="selectByDepartmentId" resultMap="EmployeeMap"
+		parameterType="java.lang.Integer" useCache="true">
+		select
+		<include refid="EmployeeColumns" />
+		from t_employee
+		where department_id=#{id}
+	</select>
+
+	<insert id="insert" parameterType="Employee">
+		insert into t_employee
+		(`name`,sex,birthday,salary,department_id,picture)
+		values(#{name},#{sex},#{birthday},#{salary},#{departmentId},#{picture})
+	</insert>
+
+	<update id="update" parameterType="Employee">
+		update t_employee
+		<set>
+			<if test="name!=null and name!=''">
+				`name`=#{name},
+			</if>
+			<if test="sex!=null and sex!=''">
+				sex=#{sex},
+			</if>
+			<if test="localBirthday!=null and localBirthday!=''">
+				birthday=#{localBirthday},
+			</if>
+			<if test="salary!=null and salary!=''">
+				salary=#{salary},
+			</if>
+			<if test="departmentId!=null and departmentId!=''">
+				department_id=#{departmentId},
+			</if>
+			<if test="picture!=null and picture!=''">
+				picture=#{picture}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	<!-- update employee set sex=case id when 8 then '女' end where id in (8); -->
+	<update id="updateMany" parameterType="java.util.List">
+		update t_employee
+		<set>
+			department_id=case id
+			<foreach collection="employeeList" item="employee"
+				separator=" " open="" close=" end">
+				when #{employee.id} then
+				#{employee.departmentId}
+			</foreach>
+		</set>
+		<where>
+			id in
+			<foreach collection="employeeList" item="employee"
+				separator="," open="(" close=")">
+				#{employee.id}
+			</foreach>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from t_employee where
+		id=#{id}
+	</delete>
+
+	<delete id="deleteMany" parameterType="java.util.List">
+		delete from t_employee
+		<where>
+			id in
+			<foreach collection="ids" item="id" separator="," open="("
+				close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+
+</mapper>

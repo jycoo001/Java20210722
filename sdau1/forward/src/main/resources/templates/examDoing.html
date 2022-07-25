@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+    <meta charset="UTF-8">
+    <title>考试</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/doing.css}" href="../static/css/doing.css">
+    <script src="../static/js/jquery-3.6.0.min.js" th:src="@{/static/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/layer/layer.js" th:src="@{/static/layer/layer.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/js/index.js" th:src="@{/static/js/index.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="first">
+    <span>在线考试系统</span>
+    <div class="jpg" data-url="user/user.html" th:style="'background:url(/'+${user.picture}+') no-repeat center center/cover'" th:attr="data-url=@{/toMy}"><a href="user/user.html" th:text="${user.name}" th:href="@{/toMy}">user</a></div>
+</div>
+<div class="white"></div>
+<div class="doing">
+    <div class="bb">
+        <form id="form1" action="index.html" th:action="@{/test/sub}" method="post">
+            <h1>一、单选</h1>
+            <table th:each="sin,item:${single}">
+                <tbody>
+                <tr><td colspan="2" th:text="${item.index+1}+'、'+${sin.question}">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td></tr>
+                <tr>
+                    <td><input id="singleA" th:id="'single'+${item.index}+'A'" type="radio" name="single" th:name="'single'+${item.index}" value="a"/></td>
+                    <td><label for="singleA" th:for="'single'+${item.index}+'A'" th:text="${sin.optionA}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="singleB" th:id="'single'+${item.index}+'B'" type="radio" name="single" th:name="'single'+${item.index}" value="b"/></td>
+                    <td><label for="singleB" th:for="'single'+${item.index}+'B'" th:text="${sin.optionB}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="singleC" th:id="'single'+${item.index}+'C'" type="radio" name="single" th:name="'single'+${item.index}" value="c"/></td>
+                    <td><label for="singleC" th:for="'single'+${item.index}+'C'" th:text="${sin.optionC}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="singleD" th:id="'single'+${item.index}+'D'" type="radio" name="single" th:name="'single'+${item.index}" value="d"/></td>
+                    <td><label for="singleD" th:for="'single'+${item.index}+'D'" th:text="${sin.optionD}"><xxxxxxxxxx</label></td>
+                </tr>
+                </tbody>
+            </table>
+            <h1>二、多选</h1>
+            <table th:each="mul,item:${multi}">
+                <tbody>
+                <tr><td colspan="2" th:text="${item.index+1}+'、'+${mul.question}">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td></tr>
+                <tr>
+                    <td><input id="multiA" th:id="'multi'+${item.index}+'A'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="a"/></td>
+                    <td><label for="multiA" th:for="'multi'+${item.index}+'A'" th:text="${mul.optionA}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiB" th:id="'multi'+${item.index}+'B'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="b"/></td>
+                    <td><label for="multiB" th:for="'multi'+${item.index}+'B'" th:text="${mul.optionB}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiC" th:id="'multi'+${item.index}+'C'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="c"/></td>
+                    <td><label for="multiC" th:for="'multi'+${item.index}+'C'" th:text="${mul.optionC}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiD" th:id="'multi'+${item.index}+'D'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="d"/></td>
+                    <td><label for="multiD" th:for="'multi'+${item.index}+'D'" th:text="${mul.optionD}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiE" th:id="'multi'+${item.index}+'E'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="e"/></td>
+                    <td><label for="multiE" th:for="'multi'+${item.index}+'E'" th:text="${mul.optionE}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiF" th:id="'multi'+${item.index}+'F'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="f"/></td>
+                    <td><label for="multiF" th:for="'multi'+${item.index}+'F'" th:text="${mul.optionF}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiG" th:id="'multi'+${item.index}+'G'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="g"/></td>
+                    <td><label for="multiG" th:for="'multi'+${item.index}+'G'" th:text="${mul.optionG}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiH" th:id="'multi'+${item.index}+'H'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="h"/></td>
+                    <td><label for="multiH" th:for="'multi'+${item.index}+'H'" th:text="${mul.optionH}"><xxxxxxxxxx</label></td>
+                </tr>
+                </tbody>
+            </table>
+            <h1>三、判断</h1>
+            <table th:each="p,item:${pan}">
+                <tbody>
+                <tr><td colspan="2" th:text="${item.index+1}+'、'+${p.question}">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td></tr>
+                <tr>
+                    <td><input id="panA" th:id="'pan'+${item.index}+'A'" type="radio" name="pan" th:name="'pan'+${item.index}" value="a"/></td>
+                    <td><label for="panA" th:for="'pan'+${item.index}+'A'" th:text="${p.optionA}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="panB" th:id="'pan'+${item.index}+'B'" type="radio" name="pan" th:name="'pan'+${item.index}" value="b"/></td>
+                    <td><label for="panB" th:for="'pan'+${item.index}+'B'" th:text="${p.optionB}"><xxxxxxxxxx</label></td>
+                </tr>
+                </tbody>
+            </table>
+            <input class="sub" type="button" value="提交答案" />
+        </form>
+        <form id="hidden-form" action="" method="post" th:action="@{/exam/sub}">
+            <input name="single" value="" type="hidden">
+            <input name="multi" value="" type="hidden">
+            <input name="pan" value="" type="hidden">
+        </form>
+    </div>
+</div>
+<div class="white"></div>
+<script th:inline="javascript" type="text/javascript">
+    $(".sub").click(function() {
+        //单选
+        var count1 = [[${single.size()}]];
+        var sel = $("#form1 table");
+        if(count1) {
+            var single1="";
+            for(var i = 0; i < count1; i++) {
+                var single=$(sel[i]).find("input:radio:checked").val();
+                if(single) {
+                    single1 +=single+",";
+                } else {
+                    single1 +=" ,";
+                }
+            }
+            console.log(single1);
+            $("#hidden-form input[name=single]").val(single1);
+        }
+        //多选
+        var count2 = [[${multi.size()}]];
+        if(count2) {
+            var multi1="";
+            for(var i = 0; i < count2; i++) {
+                var multi=$(sel[i+count1]).find("input:checkbox:checked");
+                if(multi) {
+                    for(var j = 0;j < multi.length; j++) {
+                        var value=$(multi[j]).val();
+                        multi1+=value+",";
+                    }
+                } else {
+                    multi1+=" ";
+                }
+                multi1+=";";
+            }
+            console.log(multi1);
+            $("#hidden-form input[name=multi]").val(multi1);
+        }
+        var count3=[[${pan.size()}]];
+        if(count3) {
+            var pan1="";
+            for(var i = 0; i < count3; i++) {
+                var pan=$(sel[i+count1+count2]).find("input:radio:checked").val();
+                if(pan) {
+                    pan1 +=pan+",";
+                } else {
+                    pan1 +=" ,";
+                }
+            }
+            console.log(pan1);
+            $("#hidden-form input[name=pan]").val(pan1);
+        }
+        $("#hidden-form").submit();
+    });
+</script>
+</body>
+
+</html>

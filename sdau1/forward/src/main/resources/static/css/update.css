@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	height: 935px;
+	background: url("../img/login.png") no-repeat center center/cover;
+}
+
+.hidden {
+	width: 100%;
+	height: 250px;
+}
+
+.container {
+	width: 20%;
+	height: 490px;
+	margin: 0 auto;
+	background-color: rgb(211, 228, 248);
+	border: 1px solid #333;
+	background-color: white;
+	user-select: none;
+	border-radius: 10px;
+}
+
+.span {
+	width: 100%;
+	height: 100px;
+	font-size: 35px;
+	font-weight: bold;
+	text-align: center;
+	margin: 15px auto;
+	color: #A0D2FF;
+}
+
+.login {
+	width: 90%;
+	height: 500px;
+	margin: 15px auto;
+}
+
+.login form {
+	color: #A0D2FF;
+}
+
+.login form input {
+	width: 96%;
+	height: 30px;
+	margin-top: 10px;
+}
+
+.login form div {
+	margin-bottom: 10px;
+}
+
+.login form>div.div-but {
+	width: 250px;
+	height: 100px;
+	margin-top: 35px;
+	margin-left: 60px;
+}
+
+.login form>div.div-but>a {
+	display: inline-block;
+	margin-top: 30px;
+	margin-right: 50px;
+	text-decoration: none;
+	color: #666;
+}
+
+.login form button {
+	margin-right: 20px;
+}

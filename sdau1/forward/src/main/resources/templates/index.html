@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}" href="../static/css/index.css">
+    <script src="../static/js/jquery-3.6.0.min.js" th:src="@{/static/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/layer/layer.js" th:src="@{/static/layer/layer.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/js/index.js" th:src="@{/static/js/index.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div class="first">
+        <span>在线考试系统</span>
+        <div class="jpg" data-url="user/user.html" th:style="'background:url(/'+${user.picture}+') no-repeat center center/cover'" th:attr="data-url=@{/toMy}"><a href="user/user.html" th:text="${user.name}" th:href="@{/toMy}">user</a></div>
+    </div>
+    <div class="white"></div>
+    <div class="bod">
+       <div class="text" data-url="test.html" th:attr="data-url=@{/toTest}"><a>我要练习</a></div>
+        <div class="his-text" data-url="hisTest.html" th:attr="data-url=@{/toHisTest}"><a>历史练习</a></div>
+       <div class="exam" data-url="exam.html" th:attr="data-url=@{/toExam}"><a>我要考试</a></div>
+        <div class="his-exam" data-url="hisExam.html" th:attr="data-url=@{/toHisExam}"><a>历史考试</a></div>
+    </div>
+</body>
+</html>

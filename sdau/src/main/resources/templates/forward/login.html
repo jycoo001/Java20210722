@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+	<head>
+		<meta charset="UTF-8">
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/static/forward/css/button.css}" href="../../static/forward/css/button.css" />
+		<link rel="stylesheet" type="text/css" th:href="@{/static/forward/css/login.css}" href="../../static/forward/css/login.css" />
+		<script src="../../static/forward/js/jquery-3.6.0.min.js" th:src="@{/static/forward/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/forward/layer/layer.js" th:src="@{/static/forward/layer/layer.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/forward/js/login.js" th:src="@{/static/forward/js/login.js}" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var detail = "";
+			var path = "";
+		</script>
+	</head>
+	<body>
+		<div class="hidden"></div>
+		<div class="container">
+			<div class="span">
+				<span>登录</span>
+			</div>
+			<div class="login">
+				<form action="/forward/login" method="post">
+					<div class="name">
+						<label for="name">用户名：</label> <input type="text" id="name" name="name"
+							value="" placeholder="用户名" autocomplete="none" />
+					</div>
+					<div>
+						<label for="password">密码：</label> <input type="password" id="password" name="password"
+							value="" placeholder="密码" />
+					</div>
+					<div>
+						<label for="code">验证码：</label> <input type="text" id="code" name="code" placeholder="验证码" />
+						<img id="imageCode" src="/code" />
+					</div>
+					<div class="div-but">
+						<button class="large button blue" type="sunbmit">登录</button>
+						<button class="large button green" type="reset">重置</button>
+						<a href="/forward/register">注册新用户</a> <a href="/forward/back">忘记密码</a>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+    <meta charset="UTF-8">
+    <title>练习</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/test.css}" href="../static/css/test.css">
+    <script src="../static/js/jquery-3.6.0.min.js" th:src="@{/static/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/layer/layer.js" th:src="@{/static/layer/layer.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/js/index.js" th:src="@{/static/js/index.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="first">
+    <span>在线考试系统</span>
+    <div class="jpg" data-url="user/user.html" th:style="'background:url(/'+${user.picture}+') no-repeat center center/cover'" th:attr="data-url=@{/toMy}"><a href="user/user.html" th:text="${user.name}" th:href="@{/toMy}">user</a></div>
+</div>
+<div class="white"></div>
+<div class="bod1">
+    <div class="form">
+        <form action="index.html" method="post" th:action="@{/test/sel}">
+            <table>
+                <tbody>
+                <tr>
+                    <td>单项选择：</td>
+                    <td><input name="single" type="text" placeholder="请输入要抽取的单选题目数量"/></td>
+                </tr>
+                <tr>
+                    <td>多项选择：</td>
+                    <td><input name="multi" type="text" placeholder="请输入要抽取的多选题目数量"/></td>
+                </tr>
+                <tr>
+                    <td>判断：</td>
+                    <td><input name="pan" type="text" placeholder="请输入要抽取的判断题目"/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="去练习"/></td>
+                    <td><input type="reset" value="重置"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<div class="white"></div>
+</body>
+</html>

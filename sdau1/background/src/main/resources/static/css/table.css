@@ -1,0 +1,14 @@
+#page1 div,ul,li {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 15px;
+    margin-left: 10px;
+}
+#page1 {
+    margin-left: 600px;
+}
+#page1 .select-pageSize {
+    margin-left: 80px;
+    width: 40px;
+    height: 25px;
+}

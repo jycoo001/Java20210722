@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+	<meta charset="UTF-8">
+	<title>添加信息</title>
+	<meta name="renderer" content="webkit">	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
+	<meta name="apple-mobile-web-app-capable" content="yes">	
+	<meta name="format-detection" content="telephone=no">	
+	<link rel="stylesheet" type="text/css" th:href="@{/static/common/layui/css/layui.css}" href="../../static/common/layui/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/common/bootstrap/css/bootstrap.css}" href="../../static/common/bootstrap/css/bootstrap.css" media="all">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/common/global.css}" href="../../static/common/global.css" media="all">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/personal.css}" href="../../static/css/personal.css" media="all">
+</head>
+<body class="childrenBody">
+	<form class="layui-form form1" th:action="@{/pan/update}" method="post" action="table.html">
+		<input name="id" th:value="${pan.id}" type="hidden"/>
+		<div class="layui-form-item">
+			<label class="layui-form-label">题目:</label>
+			<div class="layui-input-block">
+				<input class="layui-input newsName" name="question" lay-verify="required" th:value="${pan.question}" placeholder="请输入题目" type="text">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">简化题目:</label>
+			<div class="layui-input-block">
+				<input class="layui-input newsName" name="simpleQuestion" lay-verify="required" placeholder="请输入简化题目" th:value="${pan.simpleQuestion}" type="text">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">选项A:</label>
+			<div class="layui-input-block">
+				<input class="layui-input newsName" name="optionA"  placeholder="请输入选项A" th:value="${pan.optionA}" type="text">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">选项B:</label>
+			<div class="layui-input-block">
+				<input class="layui-input newsName" name="optionB" placeholder="请输入选项B" th:value="${pan.optionB}" type="text">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">正确答案</label>
+				<div class="layui-input-block">
+					<input name="right" title="对" value="a" type="checkbox"><div class="layui-unselect layui-form-checkbox" lay-skin=""><span>对</span><i class="layui-icon"></i></div>
+					<input name="right" title="错" value="b" type="checkbox"><div class="layui-unselect layui-form-checkbox" lay-skin=""><span>错</span><i class="layui-icon"></i></div>
+				</div>
+			</div>
+			<!--<div class="layui-inline">
+				<label class="layui-form-label">文章作者</label>
+				<div class="layui-input-inline">
+					<input class="layui-input newsAuthor" lay-verify="required" placeholder="请输入文章作者" type="text">
+				</div>
+			</div>-->
+			<!--<div class="layui-inline">
+				<label class="layui-form-label">发布时间</label>
+				<div class="layui-input-inline">
+					<input class="layui-input newsTime" lay-verify="required|date" onClick="layui.laydate({elem:this})" type="text">
+				</div>
+			</div>-->
+			<div class="layui-inline">
+				<label class="layui-form-label">练习权限</label>
+				<div class="layui-input-inline">
+					<select name="isExam" class="newsLook" lay-filter="browseLook">
+				        <option value="是">开放练习</option>
+				        <option value="否">暂不开放</option>
+				    </select><div class="layui-unselect layui-form-select"><div class="layui-select-title"><input placeholder="开放浏览" value="开放浏览" readonly="" class="layui-input layui-unselect" type="text"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="0" class="layui-this">开放浏览</dd><dd lay-value="1" class="">会员浏览</dd></dl></div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">关键字</label>
+			<div class="layui-input-block">
+				<input class="layui-input" name="simple" th:value="${pan.simple}" placeholder="请输入本题关键字" type="text">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">备注:</label>
+			<div class="layui-input-block">
+				<textarea placeholder="请输入备注" name="remarks" th:text="${pan.remarks}" class="layui-textarea"></textarea>
+			</div>
+		</div>
+		<!--<div class="layui-form-item">
+			<label class="layui-form-label">文章内容</label>
+			<div class="layui-input-block">
+				<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"></textarea><div class="layui-layedit"><div class="layui-unselect layui-layedit-tool"><i class="layui-icon layedit-tool-b" title="加粗" lay-command="Bold" layedit-event="b" "=""></i><i class="layui-icon layedit-tool-i" title="斜体" lay-command="italic" layedit-event="i" "=""></i><i class="layui-icon layedit-tool-u" title="下划线" lay-command="underline" layedit-event="u" "=""></i><i class="layui-icon layedit-tool-d" title="删除线" lay-command="strikeThrough" layedit-event="d" "=""></i><span class="layedit-tool-mid"></span><i class="layui-icon layedit-tool-left" title="左对齐" lay-command="justifyLeft" layedit-event="left" "=""></i><i class="layui-icon layedit-tool-center" title="居中对齐" lay-command="justifyCenter" layedit-event="center" "=""></i><i class="layui-icon layedit-tool-right" title="右对齐" lay-command="justifyRight" layedit-event="right" "=""></i><span class="layedit-tool-mid"></span><i class="layui-icon layedit-tool-link" title="插入链接" layedit-event="link" "=""></i><i class="layui-icon layedit-tool-unlink layui-disabled" title="清除链接" lay-command="unlink" layedit-event="unlink" "=""></i><i class="layui-icon layedit-tool-face" title="表情" layedit-event="face" "=""></i><i class="layui-icon layedit-tool-image" title="图片" layedit-event="image"><input name="file" type="file"></i></div><div class="layui-layedit-iframe"><iframe id="LAY_layedit_1" name="LAY_layedit_1" textarea="news_content" style="height: 280px;" frameborder="0"></iframe></div></div>
+			</div>
+		</div>-->
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="addNews">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		    </div>
+		</div>
+	</form>
+	<script type="text/javascript" th:src="@{/static/common/layui/layui.js}" src="../../static/common/layui/layui.js"></script>
+	<script type="text/javascript" th:src="@{/static/js/newsadd.js}" src="../../static/js/newsadd.js"></script>
+
+</body>
+</html>

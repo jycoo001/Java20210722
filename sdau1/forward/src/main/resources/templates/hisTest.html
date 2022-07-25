@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+    <meta charset="UTF-8">
+    <title>练习</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/doing.css}" href="../static/css/doing.css">
+    <script src="../static/js/jquery-3.6.0.min.js" th:src="@{/static/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/layer/layer.js" th:src="@{/static/layer/layer.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/js/index.js" th:src="@{/static/js/index.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="first">
+    <span>在线考试系统</span>
+    <div class="jpg" data-url="user/user.html" th:style="'background:url(/'+${user.picture}+') no-repeat center center/cover'" th:attr="data-url=@{/toMy}"><a href="user/user.html" th:text="${user.name}" th:href="@{/toMy}">user</a></div>
+</div>
+<div class="white"></div>
+<div class="doing">
+    <div class="bb">
+        <div style="width: 50%;margin: 0 auto;text-align: center"><h1>历史练习</h1></div>
+        <table class="hisTest-tab">
+            <thead>
+                <tr>
+                    <td>
+                        序列号
+                    </td>
+                    <td>
+                        时间
+                    </td>
+                    <td>
+                        分数
+                    </td>
+                    <td>
+                        操作
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usP,item :${user.list}">
+                    <td th:text="${usP.uuid}">uuid</td>
+                    <td th:text="${usP.formatTime}">time</td>
+                    <td th:text="${usP.group}">group</td>
+                    <td><button class="hisTest-button" th:attr="data-id=${usP.uuid}">查看详情</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="white"></div>
+<script th:inline="javascript" type="text/javascript">
+    $(".hisTest-button").click(function () {
+        var uuid = $(this).attr("data-id");
+        location.href="/hisTest?uuid="+uuid;
+    });
+</script>
+</body>
+</html>

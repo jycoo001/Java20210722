@@ -1,0 +1,56 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.tab {
+    width: 21%;
+    height: 600px;
+    margin: 0 auto;
+}
+
+table {
+    border: 1px solid #333;
+    border-collapse: collapse;
+}
+
+table td, th {
+    border: 1px solid #333;
+    padding: 2px 5px;
+}
+
+ul {
+    list-style-type: none;
+    display: inline-block;
+}
+
+ul > li {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.page {
+    width: 9%;
+    height: 70px;
+    margin: 0 auto;
+    user-select: none;
+}
+
+.page > div {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border: 1px solid pink;
+    cursor: pointer;
+}
+
+.page ul > li {
+    width: 25px;
+    height: 25px;
+    border: 1px solid pink;
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}

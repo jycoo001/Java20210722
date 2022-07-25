@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyc.background.dao.PanDAO">
+<!--	<cache type="org.mybatis.caches.caffeine.CaffeineCache" />-->
+	<sql id="Columns">
+		id,question,simple_question,option_a,option_b,`right`,master_id,is_exam,`time`,remarks,`simple`
+	</sql>
+	<resultMap type="Pan" id="Map">
+		<id property="id" column="id" />
+		<result property="question" column="question" />
+		<result property="simpleQuestion" column="simple_question"/>
+		<result property="optionA" column="option_a" />
+		<result property="optionB" column="option_b" />
+		<result property="right" column="right" />
+		<result property="masterId" column="master_id" />
+		<result property="isExam" column="is_exam" />
+		<result property="time" column="time" />
+		<result property="remarks" column="remarks" />
+		<result property="simple" column="simple" />
+		<association property="master" column="master_id" select="com.jyc.background.dao.MasterDAO.findById" />
+	</resultMap>
+	
+	<select id="findAll" resultMap="Map" parameterType="Pan">
+		select
+		<include refid="Columns" />
+		from t_pan
+		<where>
+			<if test="id!=null">
+				and id=#{id}
+			</if>
+			<if test="question!=null and question!=''">
+				and question=#{question}
+			</if>
+			<if test="optionA!=null and optionA!=''">
+				and option_a=#{optionA}
+			</if>
+			<if test="optionB!=null and optionB!=''">
+				and option_b=#{optionB}
+			</if>
+			<if test="right!=null and right!=''">
+				and `right`=#{right}
+			</if>
+			<if test="remarks!=null and remarks!=''">
+				and remarks=#{remarks}
+			</if>
+			<if test="simpleQuestion!=null and simpleQuestion!=''">
+				and simple_question=#{simpleQuestion}
+			</if>
+			<if test="masterId!=null">
+				and master_id=#{masterId}
+			</if>
+			<if test="isExam!=null and isExam!=''">
+				and is_exam=#{isExam}
+			</if>
+			<if test="time!=null">
+				and `time`=#{formatTime}
+			</if>
+			<if test="simple!=null and simple!=''">
+				and `simple`=#{simple}
+			</if>
+		</where>
+		order by id
+	</select>
+
+	<select id="findByQuestion" resultMap="Map" parameterType="java.lang.String">
+		select
+		<include refid="Columns" />
+		from t_pan
+		where question like #{str} or option_a like #{str} or option_b like #{str}
+		   or `right` like #{str} or simple_question like #{str} or `simple` like #{str}
+		order by id
+	</select>
+
+	<select id="findByIds" resultMap="Map" parameterType="java.util.List">
+		select
+		<include refid="Columns" />
+		from t_pan
+		where id in
+		<foreach collection="ids" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+		order by id
+	</select>
+
+	<select id="findCount" resultType="java.lang.Integer" >
+		select count(0) from t_pan
+	</select>
+
+	<insert id="insert" parameterType="Pan">
+		insert into t_pan(question,simple_question,option_a,option_b,`right`,master_id,is_exam,`time`,`simple`) values(#{question},#{simpleQuestion},#{optionA},#{optionB},#{right},#{masterId},#{isExam},#{time},#{simple})
+	</insert>
+	
+	<update id="update" parameterType="Pan">
+		update t_pan
+		<set>
+			<if test="id!=null">
+				id=#{id},
+			</if>
+			<if test="question!=null and question!=''">
+				question=#{question},
+			</if>
+			<if test="optionA!=null and optionA!=''">
+				option_a=#{optionA},
+			</if>
+			<if test="optionB!=null and optionB!=''">
+				option_b=#{optionB},
+			</if>
+			<if test="right!=null and right!=''">
+				`right`=#{right},
+			</if>
+			<if test="remarks!=null and remarks!=''">
+				remarks=#{remarks},
+			</if>
+			<if test="simpleQuestion!=null and simpleQuestion!=''">
+				simple_question=#{simpleQuestion},
+			</if>
+			<if test="masterId!=null">
+				master_id=#{masterId},
+			</if>
+			<if test="isExam!=null and isExam!=''">
+				is_exam=#{isExam},
+			</if>
+			<if test="time!=null">
+				`time`=#{time},
+			</if>
+			<if test="simple!=null and simple!=''">
+				`simple`=#{simple},
+			</if>
+		</set>
+		where question=#{question}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from t_pan where id=#{id}
+	</delete>
+	
+	<delete id="deleteMany" parameterType="java.util.List">
+		delete from t_pan where id in
+		<foreach collection="ids" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+</mapper>

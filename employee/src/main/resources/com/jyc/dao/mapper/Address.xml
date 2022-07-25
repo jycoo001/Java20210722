@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyc.employee.dao.AddressDAO">
+
+	<!-- 表示对AddressDAO接口的查询方法启用二级缓存，type属性用于指定缓存的实现类 -->
+	<!--<cache type="org.mybatis.caches.caffeine.CaffeineCache" />-->
+	
+	<!-- 配置了一个sql片段 -->
+	<sql id="AddressColumns">
+		id,`name`,short_name,full_name,full_short_name
+	</sql>
+
+	<!-- 配置查询结果集与对象之间的映射 -->
+	<resultMap type="Address" id="AddressMap">
+		<id property="id" column="id" />
+		<result property="selfName" column="name" />
+		<result property="selfShortName" column="short_name" />
+		<result property="name" column="full_name" />
+		<result property="simpleName" column="full_short_name" />
+	</resultMap>
+
+
+	<select id="querySelector" resultMap="AddressMap"
+		parameterType="Address">
+		select
+		<include refid="AddressColumns" />
+		from v_fulladdress_4
+		order by id
+	</select>
+
+	<select id="findById" resultMap="AddressMap"
+		parameterType="java.lang.Integer" useCache="true">
+		select
+		<include refid="AddressColumns" />
+		from v_fulladdress_4
+		where id=#{id}
+	</select>
+
+</mapper>

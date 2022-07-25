@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.first {
+    height: 70px;
+    width: 100%;
+    background-color: #40AFFE;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+}
+.first>span {
+    font-size: 55px;
+    text-align: center;
+    position: fixed;
+    cursor: pointer;
+    top: 0%;
+    left: 40%;
+}
+.first>.jpg {
+    height: 60px;
+    width: 60px;
+    background-color: #8D8D8D;
+    position: fixed;
+    right: 0%;
+    top: 0%;
+    border: 1px solid red;
+    cursor: pointer;
+    border-radius: 60px;
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 4px;
+}
+.first>.jpg>a {
+    display: inline-block;
+    width: 30px;
+    height: 15px;
+    margin-top: 18px;
+    text-align: center;
+}
+/*留白*/
+.white {
+    width: 100%;
+    height: 70px;
+}
+/*正文*/
+.bod {
+    width: 100%;
+    height: 867px;
+    background-color: #70B9E8;
+}
+.bod>.text,.exam,.his-exam,.his-text {
+    float: left;
+    width: 25%;
+    text-align: center;
+    line-height: 700px;
+    font-size: 50px;
+}
+.bod a {
+    cursor: pointer;
+    border: 1px solid bisque;
+    border-radius: 50px;
+    background-color: darkseagreen;
+}

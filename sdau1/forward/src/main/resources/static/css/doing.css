@@ -1,0 +1,21 @@
+.doing {
+    width: 100%;
+}
+.doing>.bb {
+    width: 55%;
+    margin: 0 auto;
+}
+.sub {
+    position: fixed;
+    top: 90%;
+    left: 80%;
+    width: 100px;
+    height: 30px;
+}
+/*hisTest*/
+.bb .hisTest-tab td {
+    font-size: 25px;
+    text-align: center;
+    padding: 10px 20px;
+    border: 1px solid aquamarine;
+}

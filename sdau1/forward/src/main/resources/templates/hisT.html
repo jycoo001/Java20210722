@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+    <meta charset="UTF-8">
+    <title>练习</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/index.css}" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/doing.css}" href="../static/css/doing.css">
+    <script src="../static/js/jquery-3.6.0.min.js" th:src="@{/static/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/layer/layer.js" th:src="@{/static/layer/layer.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="../static/js/index.js" th:src="@{/static/js/index.js}" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="first">
+    <span>在线考试系统</span>
+    <div class="jpg" data-url="user/user.html" th:style="'background:url(/'+${user.picture}+') no-repeat center center/cover'" th:attr="data-url=@{/toMy}"><a href="user/user.html" th:text="${user.name}" th:href="@{/toMy}">user</a></div>
+</div>
+<div class="white"></div>
+<div class="doing">
+    <div class="bb">
+            <h1>一、单选</h1>
+            <table th:each="sin,item:${singleLook}">
+                <tbody>
+                <tr><td colspan="2" th:text="${item.index+1}+'、'+${sin.single.question}">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td></tr>
+                <tr>
+                    <td><input id="singleA" th:id="'single'+${item.index}+'A'" type="radio" name="single" th:name="'single'+${item.index}" value="a"/></td>
+                    <td><label for="singleA" th:for="'single'+${item.index}+'A'" th:text="${sin.single.optionA}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="singleB" th:id="'single'+${item.index}+'B'" type="radio" name="single" th:name="'single'+${item.index}" value="b"/></td>
+                    <td><label for="singleB" th:for="'single'+${item.index}+'B'" th:text="${sin.single.optionB}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="singleC" th:id="'single'+${item.index}+'C'" type="radio" name="single" th:name="'single'+${item.index}" value="c"/></td>
+                    <td><label for="singleC" th:for="'single'+${item.index}+'C'" th:text="${sin.single.optionC}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="singleD" th:id="'single'+${item.index}+'D'" type="radio" name="single" th:name="'single'+${item.index}" value="d"/></td>
+                    <td><label for="singleD" th:for="'single'+${item.index}+'D'" th:text="${sin.single.optionD}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td>
+                        您的选择：
+                    </td>
+                    <td th:text="${sin.userSelect}">
+                        a
+                    </td>
+                </tr>
+                <tr>
+                    <td>正确答案：</td>
+                    <td th:text="${sin.single.right}">a</td>
+                </tr>
+                <tr>
+                    <td>解析：</td>
+                    <td th:text="${sin.single.remarks}">xxxxxxxxxxx</td>
+                </tr>
+                </tbody>
+            </table>
+            <h1>二、多选</h1>
+            <table th:each="mul,item:${multiLook}">
+                <tbody>
+                <tr><td colspan="2" th:text="${item.index+1}+'、'+${mul.multi.question}">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td></tr>
+                <tr>
+                    <td><input id="multiA" th:id="'multi'+${item.index}+'A'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="a"/></td>
+                    <td><label for="multiA" th:for="'multi'+${item.index}+'A'" th:text="${mul.multi.optionA}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiB" th:id="'multi'+${item.index}+'B'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="b"/></td>
+                    <td><label for="multiB" th:for="'multi'+${item.index}+'B'" th:text="${mul.multi.optionB}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiC" th:id="'multi'+${item.index}+'C'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="c"/></td>
+                    <td><label for="multiC" th:for="'multi'+${item.index}+'C'" th:text="${mul.multi.optionC}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiD" th:id="'multi'+${item.index}+'D'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="d"/></td>
+                    <td><label for="multiD" th:for="'multi'+${item.index}+'D'" th:text="${mul.multi.optionD}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiE" th:id="'multi'+${item.index}+'E'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="e"/></td>
+                    <td><label for="multiE" th:for="'multi'+${item.index}+'E'" th:text="${mul.multi.optionE}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiF" th:id="'multi'+${item.index}+'F'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="f"/></td>
+                    <td><label for="multiF" th:for="'multi'+${item.index}+'F'" th:text="${mul.multi.optionF}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiG" th:id="'multi'+${item.index}+'G'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="g"/></td>
+                    <td><label for="multiG" th:for="'multi'+${item.index}+'G'" th:text="${mul.multi.optionG}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="multiH" th:id="'multi'+${item.index}+'H'" type="checkbox" name="multi" th:name="'multi'+${item.index}" value="h"/></td>
+                    <td><label for="multiH" th:for="'multi'+${item.index}+'H'" th:text="${mul.multi.optionH}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td>您的选择：</td>
+                    <td th:text="${mul.userSelect}">a</td>
+                </tr>
+                <tr>
+                    <td>正确答案：</td>
+                    <td th:text="${mul.multi.right}">a</td>
+                </tr>
+                <tr>
+                    <td>解析</td>
+                    <td th:text="${mul.multi.remarks}">xxxxxxxxxxxxxx</td>
+                </tr>
+                </tbody>
+            </table>
+            <h1>三、判断</h1>
+            <table th:each="p,item:${panLook}">
+                <tbody>
+                <tr><td colspan="2" th:text="${item.index+1}+'、'+${p.pan.question}">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td></tr>
+                <tr>
+                    <td><input id="panA" th:id="'pan'+${item.index}+'A'" type="radio" name="pan" th:name="'pan'+${item.index}" value="a"/></td>
+                    <td><label for="panA" th:for="'pan'+${item.index}+'A'" th:text="${p.pan.optionA}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td><input id="panB" th:id="'pan'+${item.index}+'B'" type="radio" name="pan" th:name="'pan'+${item.index}" value="b"/></td>
+                    <td><label for="panB" th:for="'pan'+${item.index}+'B'" th:text="${p.pan.optionB}"><xxxxxxxxxx</label></td>
+                </tr>
+                <tr>
+                    <td>您的选择：</td>
+                    <td th:text="${p.userSelect}">a</td>
+                </tr>
+                <tr>
+                    <td>正确答案</td>
+                    <td th:text="${p.pan.right}">a</td>
+                </tr>
+                <tr>
+                    <td>解析：</td>
+                    <td th:text="${p.pan.remarks}">xxxxxxxxxxxxxxxx</td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</div>
+<div class="white"></div>
+<script th:inline="javascript" type="text/javascript">
+</script>
+</body>
+
+</html>

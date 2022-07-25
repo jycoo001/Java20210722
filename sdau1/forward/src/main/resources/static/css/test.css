@@ -1,0 +1,35 @@
+.bod1 {
+    width: 100%;
+    height: 867px;
+    background-color: #70B9E8;
+}
+.bod1 a {
+    cursor: pointer;
+    border: 1px solid bisque;
+    border-radius: 50px;
+    background-color: darkseagreen;
+}
+.bod1>.form {
+    width: 500px;
+    height: 400px;
+    margin: 0 auto;
+    padding-top: 70px;
+}
+.bod1>.form td {
+    text-align: right;
+}
+.bod1>.form input {
+    width: 150px;
+    height: 30px;
+    margin: 10px;
+}
+.bod1>.form input[type=submit] {
+    background-color: #8D8D8D;
+    cursor: pointer;
+    width: 60px;
+}
+.bod1>.form input[type=reset] {
+    background-color: #8D8D8D;
+    cursor: pointer;
+    width: 60px;
+}

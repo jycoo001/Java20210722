@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org >
+<head>
+	<meta charset="UTF-8">
+	<title>添加信息</title>
+	<meta name="renderer" content="webkit">	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
+	<meta name="apple-mobile-web-app-capable" content="yes">	
+	<meta name="format-detection" content="telephone=no">	
+	<link rel="stylesheet" type="text/css" th:href="@{/static/common/layui/css/layui.css}" href="../../static/common/layui/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/common/bootstrap/css/bootstrap.css}" href="../../static/common/bootstrap/css/bootstrap.css" media="all">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/common/global.css}" href="../../static/common/global.css" media="all">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/personal.css}" href="../../static/css/personal.css" media="all">
+</head>
+<body class="childrenBody">
+	<form class="layui-form form1" th:action="@{/test/insert}" method="post" action="table.html">
+		<div class="layui-form-item">
+			<label class="layui-form-label">序列号:</label>
+			<div class="layui-input-block">
+				<input class="layui-input newsName" name="uuid" disabled="disabled" lay-verify="required" placeholder="请输入序列号" type="text">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">用户名:</label>
+			<div class="layui-input-block">
+				<input class="layui-input newsName" name="userName" disabled="disabled" lay-verify="required" placeholder="请输入用户名" type="text">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">分数：</label>
+			<div class="layui-input-block">
+				<input class="layui-input" name="simple" disabled="disabled" placeholder="请输入分数" type="text">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="addNews">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		    </div>
+		</div>
+	</form>
+	<script type="text/javascript" th:src="@{/static/common/layui/layui.js}" src="../../static/common/layui/layui.js"></script>
+	<script type="text/javascript" th:src="@{/static/js/newsadd.js}" src="../../static/js/newsadd.js"></script>
+</body>
+</html>

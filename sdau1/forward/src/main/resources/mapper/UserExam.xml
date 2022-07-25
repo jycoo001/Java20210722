@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyc.forward.dao.UserExamDAO">
+<!--	<cache type="org.mybatis.caches.caffeine.CaffeineCache" />-->
+	<sql id="Columns">
+		id,user_id,start_time,last_time,`group`,uuid,is_doing
+	</sql>
+	<resultMap type="UserExam" id="Map">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="startTime" column="start_time" />
+		<result property="lastTime" column="last_time" />
+		<result property="group" column="group" />
+		<result property="uuid" column="uuid" />
+		<result property="isDoing" column="is_doing" />
+		<association property="user" select="com.jyc.forward.dao.UserDAO.findById" column="user_id" />
+		<collection property="list" select="com.jyc.forward.dao.ExamDAO.findByUUId" column="uuid" />
+	</resultMap>
+	
+	<select id="findAll" resultMap="Map" parameterType="UserExam">
+		select
+		<include refid="Columns" />
+		from t_user_exam
+		<where>
+			<if test="id!=null">
+				and id=#{id}
+			</if>
+			<if test="userId!=null">
+				and user_id=#{userId}
+			</if>
+			<if test="startTime!=null">
+				and `start_time`=#{formatStart}
+			</if>
+			<if test="lastTime!=null">
+				and last_time=#{formatLast}
+			</if>
+			<if test="group!=null and group!=''">
+				and `group`=#{group}
+			</if>
+			<if test="uuid!=null and uuid!=''">
+				and uuid=#{uuid}
+			</if>
+			<if test="isDoing!=null and isDoing!=''">
+				and is_doing=#{isDoing}
+			</if>
+		</where>
+		order by id
+	</select>
+
+	<select id="findById" resultMap="Map" parameterType="java.lang.Integer">
+		select
+		<include refid="Columns" />
+		from t_user_exam
+		where id=#{id}
+		order by id
+	</select>
+
+	<select id="findByIds" resultMap="Map" parameterType="java.util.List">
+		select
+		<include refid="Columns" />
+		from t_user_exam
+		where id in
+		<foreach collection="ids" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+		order by id
+	</select>
+
+	<select id="findByUserExam" resultMap="Map" parameterType="java.lang.String">
+		select
+		<include refid="Columns" />
+		from t_user_exam
+		where
+		      <bind name="likeStr" value="'%'+str+'%'" />
+		      id like #{likeStr} or user_id like #{likeStr} or group like #{likeStr} or uuid like #{likeStr}
+		order by id
+	</select>
+
+	<select id="findByUUId" resultMap="Map" parameterType="java.lang.String">
+		select
+		<include refid="Columns" />
+		from t_user_exam
+		where uuid=#{uuid}
+		order by id
+	</select>
+
+	<select id="findByUserId" resultMap="Map" parameterType="java.lang.Integer">
+		select
+		<include refid="Columns" />
+		from t_user_exam
+		where user_id=#{userId}
+		order by id
+	</select>
+
+	<select id="findByUserIds" resultMap="Map" parameterType="java.util.List">
+		select
+		<include refid="Columns" />
+		from t_user_exam
+		where user_id in
+		<foreach collection="ids" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+		order by id
+	</select>
+	
+	<update id="update" parameterType="UserExam">
+		update t_user_exam
+		<set>
+			<if test="id!=null">
+				id=#{id},
+			</if>
+			<if test="userId!=null">
+				user_id=#{userId},
+			</if>
+			<if test="startTime!=null">
+				start_time=#{formatStart},
+			</if>
+		    <if test="lastTime!=null" >
+				last_time=#{formatLast},
+			</if>
+			<if test="group!=null and group!=''">
+				`group`=#{group},
+			</if>
+			<if test="uuid!=null and uuid!=''">
+				uuid=#{uuid},
+			</if>
+			<if test="isDoing!=null and isDoing!=''">
+				is_doing=#{isDoing},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+</mapper>

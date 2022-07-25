@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyc.forward.dao.MultiDAO">
+<!--	<cache type="org.mybatis.caches.caffeine.CaffeineCache" />-->
+	<sql id="Columns">
+		id,question,option_a,option_b,option_c,option_d,option_e,option_f,option_g,option_h,`right`,is_exam,remarks,`simple`
+	</sql>
+	<resultMap type="Multi" id="Map">
+		<id property="id" column="id" />
+		<result property="question" column="question" />
+		<result property="optionA" column="option_a" />
+		<result property="optionB" column="option_b" />
+		<result property="optionC" column="option_c" />
+		<result property="optionD" column="option_d" />
+		<result property="optionE" column="option_e" />
+		<result property="optionF" column="option_f" />
+		<result property="optionG" column="option_g" />
+		<result property="optionH" column="option_h" />
+		<result property="right" column="right" />
+		<result property="isExam" column="is_exam" />
+		<result property="remarks" column="remarks" />
+		<result property="simple" column="simple" />
+	</resultMap>
+	
+	<select id="findAll" resultMap="Map" parameterType="Multi">
+		select
+		<include refid="Columns" />
+		from t_multi
+		<where>
+			<if test="id!=null">
+				and id=#{id}
+			</if>
+			<if test="question!=null and question!=''">
+				and question=#{question}
+			</if>
+			<if test="optionA!=null and optionA!=''">
+				and option_a=#{optionA}
+			</if>
+			<if test="optionB!=null and optionB!=''">
+				and option_b=#{optionB}
+			</if>
+			<if test="optionC!=null and optionC!=''">
+				and option_c=#{optionC}
+			</if>
+			<if test="optionD!=null and optionD!=''">
+				and option_d=#{optionD}
+			</if>
+			<if test="optionE!=null and optionE!=''">
+				and option_e=#{optionE}
+			</if>
+			<if test="optionF!=null and optionF!=''">
+				and option_f=#{optionF}
+			</if>
+			<if test="optionG!=null and optionG!=''">
+				and option_g=#{optionG}
+			</if>
+			<if test="optionH!=null and optionH!=''">
+				and option_h=#{optionH}
+			</if>
+			<if test="right!=null and right!=''">
+				and `right`=#{right}
+			</if>
+			<if test="remarks!=null and remarks!=''">
+				and remarks=#{remarks}
+			</if>
+			<if test="isExam!=null and isExam!=''">
+				and is_exam=#{isExam}
+			</if>
+			<if test="simple!=null and simple!=''">
+				and `simple`=#{simple}
+			</if>
+		</where>
+		order by id
+	</select>
+
+	<select id="findByIds" resultMap="Map" parameterType="java.util.List">
+		select
+		<include refid="Columns" />
+		from t_multi
+		where id in
+		<foreach collection="ids" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+		order by id
+	</select>
+
+	<select id="findCount" resultType="java.lang.Integer" >
+		select count(0) from t_multi
+	</select>
+	
+</mapper>

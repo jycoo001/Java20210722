@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jyc.forward.dao.UserPracticeDAO">
+<!--	<cache type="org.mybatis.caches.caffeine.CaffeineCache" />-->
+	<sql id="Columns">
+		id,user_id,`time`,`group`,uuid
+	</sql>
+	<resultMap type="UserPractice" id="Map">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="time" column="time" />
+		<result property="group" column="group" />
+		<result property="uuid" column="uuid" />
+		<association property="user" select="com.jyc.forward.dao.UserDAO.findById" column="user_id" />
+		<collection property="practice" select="com.jyc.forward.dao.PracticeDAO.findByUUId" column="uuid" />
+	</resultMap>
+	
+	<select id="findAll" resultMap="Map" parameterType="UserPractice">
+		select
+		<include refid="Columns" />
+		from t_user_practice
+		<where>
+			<if test="id!=null">
+				and id=#{id}
+			</if>
+			<if test="userId!=null">
+				and user_id=#{userId}
+			</if>
+			<if test="time!=null">
+				and `time`=#{formatTime}
+			</if>
+			<if test="group!=null and group!=''">
+				and group=#{group}
+			</if>
+			<if test="uuid!=null and uuid!=''">
+				and uuid=#{uuid}
+			</if>
+		</where>
+		order by id desc
+	</select>
+
+	<select id="findById" resultMap="Map" parameterType="java.lang.Integer">
+		select
+		<include refid="Columns" />
+		from t_user_practice
+		where id=#{id}
+		order by id desc
+	</select>
+
+	<select id="findByUUId" resultMap="Map" parameterType="java.lang.String">
+		select
+		<include refid="Columns" />
+		from t_user_practice
+		where uuid=#{uuid}
+		order by id desc
+	</select>
+
+	<select id="findByUserId" resultMap="Map" parameterType="java.lang.Integer">
+		select
+		<include refid="Columns" />
+		from t_user_practice
+		where user_id=#{userId}
+		order by id desc
+	</select>
+
+	<insert id="insert" parameterType="UserPractice">
+		insert into
+		    t_user_practice(user_id,`time`,`group`,uuid)
+		    values(#{userId},#{formatTime},#{group},#{uuid})
+	</insert>
+	
+	<update id="update" parameterType="UserPractice">
+		update t_user_practice
+		<set>
+			<if test="id!=null">
+				id=#{id},
+			</if>
+			<if test="userId!=null">
+				user_id=#{userId},
+			</if>
+			<if test="time!=null">
+				`time`=#{formatTime},
+			</if>
+			<if test="group!=null and group!=''">
+				group=#{group},
+			</if>
+			<if test="uuid!=null and uuid!=''">
+				uuid=#{uuid},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from t_user_practice where id=#{id}
+	</delete>
+	
+	<delete id="deleteMany" parameterType="java.util.List">
+		delete from t_user_practice where id in
+		<foreach collection="ids" item="id" separator="," open="(" close=")">
+			#{id}
+		</foreach>
+	</delete>
+</mapper>
